@@ -434,62 +434,6 @@ function checkDepositAnswer() {
     updateProgress();
 }
 
-// Генерация задач для вкладов
-function generateDepositTask() {
-    let principal, rate, years, isCompound;
-    
-    if (currentLevel === 'basic') {
-        principal = Math.floor(Math.random() * 90000) + 10000;
-        rate = Math.floor(Math.random() * 11) + 5;
-        years = Math.floor(Math.random() * 5) + 1;
-        isCompound = Math.random() > 0.5;
-    } else {
-        // Более сложные задачи для повышенного уровня
-        principal = Math.floor(Math.random() * 900000) + 100000;
-        rate = Math.floor(Math.random() * 15) + 5;
-        years = Math.floor(Math.random() * 10) + 1;
-        isCompound = true; // В повышенном уровне всегда сложные проценты
-        
-        // 30% вероятности добавить ежемесячную капитализацию
-        if (Math.random() < 0.3) {
-            const monthlyRate = rate / 12;
-            const months = years * 12;
-            
-            currentDepositTask = {
-                correct: principal * Math.pow(1 + monthlyRate / 100, months),
-                question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с ежемесячной капитализацией. Сколько получит клиент?`
-            };
-            
-            document.getElementById('deposit-question').textContent = currentDepositTask.question;
-            document.getElementById('deposit-answer').value = '';
-            document.getElementById('deposit-result').classList.add('hidden');
-            document.getElementById('deposit-answer').disabled = false;
-            document.getElementById('deposit-alert').classList.add('hidden');
-            answeredDeposit = false;
-            return;
-        }
-    }
-    
-    if (isCompound) {
-        currentDepositTask = {
-            correct: principal * Math.pow(1 + rate / 100, years),
-            question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с капитализацией. Сколько получит клиент?`
-        };
-    } else {
-        currentDepositTask = {
-            correct: principal * (1 + rate / 100 * years),
-            question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} без капитализации. Сколько получит клиент?`
-        };
-    }
-    
-    document.getElementById('deposit-question').textContent = currentDepositTask.question;
-    document.getElementById('deposit-answer').value = '';
-    document.getElementById('deposit-result').classList.add('hidden');
-    document.getElementById('deposit-answer').disabled = false;
-    document.getElementById('deposit-alert').classList.add('hidden');
-    answeredDeposit = false;
-}
-
 // Проверка ответов для аннуитетных кредитов
 function checkAnnuityAnswer() {
     const alertDiv = document.getElementById('annuity-alert');
@@ -551,8 +495,8 @@ function checkDiffAnswer() {
         return;
     }
     
-    const userInput = answerInput.value.trim();
-    const parts = userInput.split(/\s+/);
+    const userInput = answerInput.value;
+    const parts = userInput.trim().split(/\s+/);
     
     if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) {
         alertDiv.textContent = 'Пожалуйста, введите два числа через пробел';
@@ -720,6 +664,381 @@ function checkEgeAnswer() {
     updateProgress();
 }
 
+// Генерация задач для вкладов
+function generateDepositTask() {
+    let principal, rate, years, isCompound;
+    
+    if (currentLevel === 'basic') {
+        principal = Math.floor(Math.random() * 90000) + 10000;
+        rate = Math.floor(Math.random() * 11) + 5;
+        years = Math.floor(Math.random() * 5) + 1;
+        isCompound = Math.random() > 0.5;
+    } else {
+        // Более сложные задачи для повышенного уровня
+        principal = Math.floor(Math.random() * 900000) + 100000;
+        rate = Math.floor(Math.random() * 15) + 5;
+        years = Math.floor(Math.random() * 10) + 1;
+        isCompound = true; // В повышенном уровне всегда сложные проценты
+        
+        // 30% вероятности добавить ежемесячную капитализацию
+        if (Math.random() < 0.3) {
+            const monthlyRate = rate / 12;
+            const months = years * 12;
+            
+            currentDepositTask = {
+                correct: principal * Math.pow(1 + monthlyRate / 100, months),
+                question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с ежемесячной капитализацией. Сколько получит клиент?`
+            };
+            
+            document.getElementById('deposit-question').textContent = currentDepositTask.question;
+            document.getElementById('deposit-answer').value = '';
+            document.getElementById('deposit-result').classList.add('hidden');
+            document.getElementById('deposit-answer').disabled = false;
+            document.getElementById('deposit-alert').classList.add('hidden');
+            answeredDeposit = false;
+            return;
+        }
+    }
+    
+    if (isCompound) {
+        currentDepositTask = {
+            correct: principal * Math.pow(1 + rate / 100, years),
+            question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с капитализацией. Сколько получит клиент?`
+        };
+    } else {
+        currentDepositTask = {
+            correct: principal * (1 + rate / 100 * years),
+            question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} без капитализации. Сколько получит клиент?`
+        };
+    }
+    
+    document.getElementById('deposit-question').textContent = currentDepositTask.question;
+    document.getElementById('deposit-answer').value = '';
+    document.getElementById('deposit-result').classList.add('hidden');
+    document.getElementById('deposit-answer').disabled = false;
+    document.getElementById('deposit-alert').classList.add('hidden');
+    answeredDeposit = false;
+}
+
+// Генерация задач для аннуитетных кредитов
+function generateAnnuityTask() {
+    let principal, rate, years;
+    
+    if (currentLevel === 'basic') {
+        principal = Math.floor(Math.random() * 900000) + 100000;
+        rate = Math.floor(Math.random() * 11) + 10;
+        years = Math.floor(Math.random() * 5) + 1;
+    } else {
+        // Более сложные задачи для повышенного уровня
+        principal = Math.floor(Math.random() * 5000000) + 1000000;
+        rate = Math.floor(Math.random() * 15) + 10;
+        years = Math.floor(Math.random() * 10) + 1;
+        
+        // 30% вероятности добавить комиссию
+        if (Math.random() < 0.3) {
+            const commission = Math.floor(Math.random() * 5) + 1;
+            const months = years * 12;
+            const monthlyRate = rate / 100 / 12;
+            const payment = principal * monthlyRate * Math.pow(1 + monthlyRate, months) / 
+                           (Math.pow(1 + monthlyRate, months) - 1);
+            
+            currentAnnuityTask = {
+                correct: payment + (principal * commission / 100 / 12),
+                question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с аннуитетными платежами. Банк берёт ${commission}% от суммы кредита в качестве ежемесячной комиссии. Какой будет ежемесячный платёж?`
+            };
+            
+            document.getElementById('annuity-question').textContent = currentAnnuityTask.question;
+            document.getElementById('annuity-answer').value = '';
+            document.getElementById('annuity-result').classList.add('hidden');
+            document.getElementById('annuity-answer').disabled = false;
+            document.getElementById('annuity-alert').classList.add('hidden');
+            answeredAnnuity = false;
+            return;
+        }
+    }
+    
+    const months = years * 12;
+    const monthlyRate = rate / 100 / 12;
+    
+    currentAnnuityTask = {
+        correct: principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1),
+        question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с аннуитетными платежами. Какой будет ежемесячный платёж?`
+    };
+    
+    document.getElementById('annuity-question').textContent = currentAnnuityTask.question;
+    document.getElementById('annuity-answer').value = '';
+    document.getElementById('annuity-result').classList.add('hidden');
+    document.getElementById('annuity-answer').disabled = false;
+    document.getElementById('annuity-alert').classList.add('hidden');
+    answeredAnnuity = false;
+}
+
+// Генерация задач для дифференцированных кредитов
+function generateDiffTask() {
+    let principal, rate, years;
+    
+    if (currentLevel === 'basic') {
+        principal = Math.floor(Math.random() * 900000) + 100000;
+        rate = Math.floor(Math.random() * 11) + 10;
+        years = Math.floor(Math.random() * 5) + 1;
+    } else {
+        // Более сложные задачи для повышенного уровня
+        principal = Math.floor(Math.random() * 5000000) + 1000000;
+        rate = Math.floor(Math.random() * 15) + 10;
+        years = Math.floor(Math.random() * 10) + 1;
+        
+        // 30% вероятности добавить комиссию
+        if (Math.random() < 0.3) {
+            const commission = Math.floor(Math.random() * 5) + 1;
+            const months = years * 12;
+            const monthlyPrincipal = principal / months;
+            const firstPayment = monthlyPrincipal + principal * (rate / 100 / 12) + (principal * commission / 100);
+            const lastPayment = monthlyPrincipal + monthlyPrincipal * (rate / 100 / 12) + (monthlyPrincipal * commission / 100);
+            
+            currentDiffTask = {
+                firstPayment: firstPayment,
+                lastPayment: lastPayment,
+                question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с дифференцированными платежами. Банк берёт ${commission}% от остатка долга в качестве ежемесячной комиссии. Какой будет первый и последний платежи? (введите через пробел)`
+            };
+            
+            document.getElementById('diff-question').textContent = currentDiffTask.question;
+            document.getElementById('diff-answer').value = '';
+            document.getElementById('diff-result').classList.add('hidden');
+            document.getElementById('diff-answer').disabled = false;
+            document.getElementById('diff-alert').classList.add('hidden');
+            answeredDiff = false;
+            return;
+        }
+    }
+    
+    const months = years * 12;
+    const monthlyPrincipal = principal / months;
+    
+    currentDiffTask = {
+        firstPayment: monthlyPrincipal + principal * (rate / 100 / 12),
+        lastPayment: monthlyPrincipal + monthlyPrincipal * (rate / 100 / 12),
+        question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с дифференцированными платежами. Какой будет первый и последний платежи? (введите через пробел)`
+    };
+    
+    document.getElementById('diff-question').textContent = currentDiffTask.question;
+    document.getElementById('diff-answer').value = '';
+    document.getElementById('diff-result').classList.add('hidden');
+    document.getElementById('diff-answer').disabled = false;
+    document.getElementById('diff-alert').classList.add('hidden');
+    answeredDiff = false;
+}
+
+// Генерация задач для инвестиций
+function generateInvestTask() {
+    let target, rate, years;
+    
+    if (currentLevel === 'basic') {
+        target = Math.floor(Math.random() * 9000000) + 1000000;
+        rate = Math.floor(Math.random() * 8) + 5;
+        years = Math.floor(Math.random() * 15) + 5;
+        
+        currentInvestTask = {
+            correct: target / Math.pow(1 + rate / 100, years),
+            question: `Какую сумму вам нужно инвестировать сегодня под ${rate}% годовых, чтобы через ${years} ${getYearWord(years)} получить ${formatNumber(target)} руб.?`
+        };
+    } else {
+        // Более сложные задачи для повышенного уровня
+        target = Math.floor(Math.random() * 90000000) + 10000000;
+        rate = Math.floor(Math.random() * 15) + 5;
+        years = Math.floor(Math.random() * 30) + 10;
+        
+        // 30% вероятности добавить ежемесячное пополнение
+        if (Math.random() < 0.3) {
+            const monthlyPayment = Math.floor(Math.random() * 50000) + 10000;
+            const monthlyRate = rate / 12 / 100;
+            const months = years * 12;
+            const futureValue = monthlyPayment * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+            
+            currentInvestTask = {
+                correct: futureValue,
+                question: `Вы планируете ежемесячно вносить ${formatNumber(monthlyPayment)} руб. на инвестиционный счёт под ${rate}% годовых с ежемесячной капитализацией. Какую сумму вы накопите через ${years} ${getYearWord(years)}?`
+            };
+            
+            document.getElementById('invest-question').textContent = currentInvestTask.question;
+            document.getElementById('invest-answer').value = '';
+            document.getElementById('invest-result').classList.add('hidden');
+            document.getElementById('invest-answer').disabled = false;
+            document.getElementById('invest-alert').classList.add('hidden');
+            answeredInvest = false;
+            return;
+        }
+        
+        currentInvestTask = {
+            correct: target / Math.pow(1 + rate / 100, years),
+            question: `Какую сумму вам нужно инвестировать сегодня под ${rate}% годовых, чтобы через ${years} ${getYearWord(years)} получить ${formatNumber(target)} руб.?`
+        };
+    }
+    
+    document.getElementById('invest-question').textContent = currentInvestTask.question;
+    document.getElementById('invest-answer').value = '';
+    document.getElementById('invest-result').classList.add('hidden');
+    document.getElementById('invest-answer').disabled = false;
+    document.getElementById('invest-alert').classList.add('hidden');
+    answeredInvest = false;
+}
+
+// Генерация задач ЕГЭ
+function generateEgeTask() {
+    // Проверка завершения 10 задач
+    if (egeTasksCompleted >= 10) {
+        document.getElementById('ege-question').textContent = "Вы уже решили 10 задач. Максимальное количество задач достигнуто.";
+        document.getElementById('ege-answer').disabled = true;
+        document.getElementById('ege-new-task-btn').disabled = true;
+        return;
+    }
+    
+    // Генерация задач для ЕГЭ в зависимости от уровня сложности
+    if (currentLevel === 'basic') {
+        generateBasicEgeTask();
+    } else {
+        generateAdvancedEgeTask();
+    }
+}
+
+// Генерация базовых задач ЕГЭ (№15)
+function generateBasicEgeTask() {
+    const taskTypes = ['deposit', 'credit', 'discount'];
+    const type = taskTypes[Math.floor(Math.random() * taskTypes.length)];
+    
+    let question, correct, solution;
+    const amount = Math.round((10000 + Math.random() * 90000) / 1000) * 1000; // Сумма от 10к до 100к, кратная 1000
+    const years = 1 + Math.floor(Math.random() * 5); // От 1 до 5 лет
+    const rate = 5 + Math.floor(Math.random() * 16); // Ставка от 5% до 20%
+    
+    switch(type) {
+        case 'deposit':
+            // Вклад с капитализацией
+            const capitalization = ['ежегодно', 'ежеквартально', 'ежемесячно'][Math.floor(Math.random() * 3)];
+            let periodsPerYear, totalPeriods;
+            
+            if (capitalization === 'ежегодно') {
+                periodsPerYear = 1;
+                totalPeriods = years;
+            } else if (capitalization === 'ежеквартально') {
+                periodsPerYear = 4;
+                totalPeriods = years * 4;
+            } else {
+                periodsPerYear = 12;
+                totalPeriods = years * 12;
+            }
+            
+            const periodRate = rate / periodsPerYear / 100;
+            const finalAmount = Math.round(amount * Math.pow(1 + periodRate, totalPeriods));
+            
+            question = `Вкладчик положил в банк ${amount.toLocaleString('ru-RU')} рублей под ${rate}% годовых с капитализацией ${capitalization}. Какая сумма будет на счету через ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'}?`;
+            correct = finalAmount.toString();
+            solution = `Используем формулу сложных процентов: S = P × (1 + r)^n = ${amount} × (1 + ${periodRate.toFixed(4)})^{${totalPeriods}} ≈ ${finalAmount} руб.`;
+            break;
+            
+        case 'credit':
+            // Аннуитетный кредит
+            const months = years * 12;
+            const monthlyRate = rate / 12 / 100;
+            const annuityPayment = Math.round(amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1));
+            
+            question = `Кредит в ${amount.toLocaleString('ru-RU')} рублей выдан под ${rate}% годовых на ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'} с аннуитетными платежами. Найдите ежемесячный платеж.`;
+            correct = annuityPayment.toString();
+            solution = `Месячная ставка: ${rate}%/12 = ${(rate/12).toFixed(2)}%. Количество месяцев: ${months}. Платёж = (${amount}×${monthlyRate.toFixed(4)}×(1+${monthlyRate.toFixed(4)})^{${months}})/((1+${monthlyRate.toFixed(4)})^{${months}}-1) ≈ ${annuityPayment} руб.`;
+            break;
+            
+        case 'discount':
+            // Дисконтирование
+            const futureAmount = Math.round((amount * (1 + 0.1 * Math.random())) / 1000) * 1000;
+            const discountRate = 5 + Math.floor(Math.random() * 11); // От 5% до 15%
+            const presentValue = Math.round(futureAmount / Math.pow(1 + discountRate/100, years));
+            
+            question = `Какую сумму нужно положить в банк под ${discountRate}% годовых с ежегодной капитализацией, чтобы через ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'} получить ${futureAmount.toLocaleString('ru-RU')} рублей?`;
+            correct = presentValue.toString();
+            solution = `Используем формулу дисконтирования: P = S / (1 + r)^n = ${futureAmount} / (1 + ${discountRate/100})^{${years}} ≈ ${presentValue} руб.`;
+            break;
+    }
+    
+    currentEgeTask = {
+        correct: correct,
+        question: question,
+        solution: solution
+    };
+    
+    document.getElementById('ege-question').textContent = currentEgeTask.question;
+    document.getElementById('ege-answer').value = '';
+    document.getElementById('ege-result').classList.add('hidden');
+    document.getElementById('ege-answer').disabled = false;
+    document.getElementById('ege-alert').classList.add('hidden');
+    answeredEge = false;
+}
+
+// Генерация сложных задач ЕГЭ (№17)
+function generateAdvancedEgeTask() {
+    const taskTypes = ['two-payments', 'equal-reduction', 'varying-payments', 'deposit-additions'];
+    const type = taskTypes[Math.floor(Math.random() * taskTypes.length)];
+    
+    let question, correct, solution;
+    const amount = Math.round((1000000 + Math.random() * 9000000) / 100000) * 100000; // От 1 млн до 10 млн
+    const years = 2 + Math.floor(Math.random() * 4); // От 2 до 5 лет
+    const rate = 10 + Math.floor(Math.random() * 21); // Ставка от 10% до 30%
+    
+    switch(type) {
+        case 'two-payments':
+            // Кредит с двумя равными платежами
+            const totalAmount = amount * Math.pow(1 + rate/100, 2);
+            const payment = Math.round(totalAmount / (1 + (1 + rate/100)));
+            
+            question = `31 декабря 2024 года заемщик взял в банке ${(amount/1000000).toLocaleString('ru-RU')} млн рублей в кредит под ${rate}% годовых. Схема выплаты кредита следующая — 31 декабря каждого следующего года банк начисляет проценты на оставшуюся сумму долга, затем заемщик переводит в банк X рублей. Какой должна быть сумма X, чтобы заемщик выплатил долг двумя равными платежами?`;
+            correct = payment.toString();
+            solution = `После первого года долг составит: ${amount} × 1.${rate} = ${Math.round(amount * (1 + rate/100))}. После выплаты X руб. останется: ${Math.round(amount * (1 + rate/100))} - X. На второй год остаток увеличивается на ${rate}%: (${Math.round(amount * (1 + rate/100))} - X) × 1.${rate}. После второй выплаты X руб. долг должен быть погашен: (${Math.round(amount * (1 + rate/100))} - X) × 1.${rate} - X = 0. Решая уравнение, получаем X = ${payment} руб.`;
+            break;
+            
+        case 'equal-reduction':
+            // Кредит с равномерным уменьшением долга
+            const months = years * 12;
+            const totalPayment = Math.round(amount * (1 + 0.3 + 0.1 * Math.random())); // Общая выплата на 30-40% больше
+            const r = Math.round((totalPayment/amount - 1) * 10 * 100) / 100; // Расчетная ставка
+            
+            question = `15 января планируется взять кредит в банке на ${months} месяцев. Условия его возврата таковы: 1-го числа каждого месяца долг возрастает на r% по сравнению с концом предыдущего месяца; со 2-го по 14-е число каждого месяца необходимо выплатить часть долга; 15-го числа каждого месяца долг должен быть на одну и ту же сумму меньше долга на 15-е число предыдущего месяца. Известно, что общая сумма выплат после полного погашения кредита на ${Math.round((totalPayment/amount - 1)*100)}% больше суммы, взятой в кредит. Найдите r.`;
+            correct = r.toString();
+            solution = `Пусть сумма кредита S. По условию, долг уменьшается равномерно: каждый месяц на S/${months}. Проценты: (S + (S - S/${months}) + (S - 2S/${months}) + ... + S/${months}) × r/100 = S × (1 + ${months-1}/${months} + ${months-2}/${months} + ... + 1/${months}) × r/100 = S × (${months+1}/2) × r/100 = ${(months+1)/200}S × r. Итого выплаты: S + ${(months+1)/200}S × r = ${totalPayment/amount}S ⇒ ${(months+1)/200} × r = ${totalPayment/amount - 1} ⇒ r = ${r}.`;
+            break;
+            
+        case 'varying-payments':
+            // Кредит с разными платежами по годам
+            const annualPayment = Math.round(amount / years);
+            const totalInterest = annualPayment * rate/100 * (years + 1) / 2;
+            const totalPaymentVar = amount + totalInterest;
+            
+            question = `В июле планируется взять кредит на сумму ${(amount/1000000).toLocaleString('ru-RU')} млн рублей на ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'}. Условия возврата: каждый январь долг возрастает на ${rate}% по сравнению с концом предыдущего года; с февраля по июнь каждого года необходимо выплатить часть долга; в июле каждого года долг должен быть на одну и ту же сумму меньше долга на июль предыдущего года. Сколько рублей составит общая сумма выплат?`;
+            correct = Math.round(totalPaymentVar).toString();
+            solution = `Ежегодное уменьшение долга: ${amount} / ${years} = ${annualPayment} руб. Проценты: (${amount} + ${amount - annualPayment} + ${amount - 2*annualPayment} + ... + ${annualPayment}) × ${rate/100} = ${amount} × ${(years + 1)/2} × ${rate/100} = ${totalInterest} руб. Общая сумма выплат: ${amount} + ${totalInterest} = ${Math.round(totalPaymentVar)} руб.`;
+            break;
+            
+        case 'deposit-additions':
+            // Вклад с ежегодными пополнениями
+            const additions = Math.round((100000 + Math.random() * 400000) / 10000) * 10000; // Пополнения от 100к до 500к
+            const finalAmount = Math.round(amount * Math.pow(1 + rate/100, 5) + additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)));
+            
+            question = `В банк помещена сумма ${(amount/1000000).toLocaleString('ru-RU')} млн рублей под ${rate}% годовых. В конце каждого из первых четырех лет хранения после начисления процентов вкладчик дополнительно вносил на счет ${additions.toLocaleString('ru-RU')} рублей. Какая сумма будет на счету к концу пятого года?`;
+            correct = finalAmount.toString();
+            solution = `Через 5 лет основная сумма составит: ${amount} × 1.${rate}^5 ≈ ${Math.round(amount * Math.pow(1 + rate/100, 5))} руб. Добавки с процентами: ${additions} × (1.${rate}^4 + 1.${rate}^3 + 1.${rate}^2 + 1.${rate}) ≈ ${Math.round(additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)))} руб. Итого: ${Math.round(amount * Math.pow(1 + rate/100, 5))} + ${Math.round(additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)))} ≈ ${finalAmount} руб.`;
+            break;
+    }
+    
+    currentEgeTask = {
+        correct: correct,
+        question: question,
+        solution: solution
+    };
+    
+    document.getElementById('ege-question').textContent = currentEgeTask.question;
+    document.getElementById('ege-answer').value = '';
+    document.getElementById('ege-result').classList.add('hidden');
+    document.getElementById('ege-answer').disabled = false;
+    document.getElementById('ege-alert').classList.add('hidden');
+    answeredEge = false;
+}
 // Вспомогательные функции
 function formatNumber(num) {
     return new Intl.NumberFormat('ru-RU').format(Math.round(num));
