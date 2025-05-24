@@ -1004,3 +1004,128 @@ document.querySelector('aside li:nth-child(4) a').addEventListener('click', func
   toggleMenu();
   openAuthModal();
 });
+
+// Открытие модального окна авторизации
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.add('show');
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById('auth-email').value = '';
+            document.getElementById('auth-password').value = '';
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-error').textContent = '';
+        }
+
+        // Закрытие модального окна авторизации
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        // Обработка формы авторизации
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errorDiv = document.getElementById('auth-error');
+            
+            // Простая валидация
+            if (!email || !password) {
+                errorDiv.textContent = 'Пожалуйста, заполните все поля';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Имитация задержки сети
+            document.getElementById('auth-submit').disabled = true;
+            document.getElementById('auth-loader').classList.remove('hidden');
+            document.getElementById('auth-text').classList.add('hidden');
+            
+            setTimeout(() => {
+                // Здесь должен быть реальный запрос к серверу
+                document.getElementById('auth-submit').disabled = false;
+                document.getElementById('auth-loader').classList.add('hidden');
+                document.getElementById('auth-text').classList.remove('hidden');
+                
+                // Имитация успешного входа
+                alert(`Вы вошли как ${email}`);
+                closeAuthModal();
+            }, 1500);
+        });
+
+        // Управление меню
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar-menu');
+            const overlay = document.getElementById('menu-overlay');
+            sidebar.classList.toggle('open');
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        }
+
+        function closeMenu() {
+            document.getElementById('sidebar-menu').classList.remove('open');
+            document.getElementById('menu-overlay').style.display = 'none';
+        }
+
+        // Закрытие меню по клику вне его или ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        document.getElementById('close-menu').addEventListener('click', () => {
+            closeMenu();
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+        });
+
+        // Функция открытия модального окна авторизации
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.add('show');
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById('auth-email').value = '';
+            document.getElementById('auth-password').value = '';
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-error').textContent = '';
+        }
+
+        // Функция закрытия модального окна авторизации
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        // Обработка формы авторизации
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errorDiv = document.getElementById('auth-error');
+            
+            // Простая валидация
+            if (!email || !password) {
+                errorDiv.textContent = 'Пожалуйста, заполните все поля';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Имитация отправки данных
+            document.getElementById('auth-submit').disabled = true;
+            document.getElementById('auth-loader').classList.remove('hidden');
+            document.getElementById('auth-text').classList.add('hidden');
+            
+            setTimeout(() => {
+                // Здесь должна быть логика реальной авторизации
+                document.getElementById('auth-submit').disabled = false;
+                document.getElementById('auth-loader').classList.add('hidden');
+                document.getElementById('auth-text').classList.remove('hidden');
+                
+                // Имитация успешного входа
+                alert(`Вы успешно вошли как ${email}`);
+                closeAuthModal();
+            }, 1500);
+        });
+    </script>
