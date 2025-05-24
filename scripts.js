@@ -1,139 +1,289 @@
-// Глобальные переменные для приложения
-        let currentDepositTask = {};
-        let currentAnnuityTask = {};
-        let currentDiffTask = {};
-        let currentInvestTask = {};
-        let currentEgeTask = {};
-        let score = 0;
-        let totalTasks = 0;
-        let answeredDeposit = false;
-        let answeredAnnuity = false;
-        let answeredDiff = false;
-        let answeredInvest = false;
-        let answeredEge = false;
-        let currentLevel = 'basic'; // 'basic' или 'advanced'
-        let egeTasksCompleted = 0;
-        let egeTotalScore = 0;
+// ==================== АВТОРИЗАЦИЯ ====================
 
-        // Создание анимированных пузырей фона
-        function createBubbles() {
-            const container = document.getElementById('bubbles-container');
-            if (!container) return;
-            container.innerHTML = '';
-            const colors = [
-                'rgba(0, 242, 255, 0.1)',
-                'rgba(180, 0, 255, 0.1)',
-                'rgba(255, 0, 195, 0.1)'
-            ];
-            for (let i = 0; i < 20; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'neon-bubble';
-                const size = Math.random() * 200 + 50;
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                const duration = Math.random() * 30 + 20;
-                const delay = Math.random() * -20;
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 500 + Math.random() * 500;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                bubble.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${posX}px;
-                    top: ${posY}px;
-                    background: ${color};
-                    animation-duration: ${duration}s;
-                    animation-delay: ${delay}s;
-                    --tx: ${tx}px;
-                    --ty: ${ty}px;
-                `;
-                container.appendChild(bubble);
-            }
-        }
+// Функции для модального окна авторизации
+function openAuthModal() {
+  const modal = document.getElementById('auth-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('animate__animated', 'animate__fadeIn');
+  document.body.style.overflow = 'hidden';
+}
 
-        // Управление табами
-        function openTab(event, tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.add('hidden');
-                tabContents[i].classList.remove('active');
-            }
-            const tabButtons = document.getElementsByClassName('tab-btn');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('tab-active');
-                tabButtons[i].classList.add('tab-inactive');
-            }
-            document.getElementById(tabName).classList.remove('hidden');
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.remove('tab-inactive');
-            event.currentTarget.classList.add('tab-active');
+function closeAuthModal() {
+  const modal = document.getElementById('auth-modal');
+  modal.classList.add('animate__animated', 'animate__fadeOut');
+  
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    modal.classList.remove('animate__fadeIn', 'animate__fadeOut');
+    document.body.style.overflow = '';
+  }, 300);
+}
 
-            // Генерация задач при переключении вкладок
-            if (tabName === 'deposit') generateDepositTask();
-            if (tabName === 'annuity') generateAnnuityTask();
-            if (tabName === 'diff') generateDiffTask();
-            if (tabName === 'invest') generateInvestTask();
-            if (tabName === 'ege') generateEgeTask();
-        }
+// Валидация формы
+function validateAuthForm(email, password) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  if (!email) {
+    showAuthError('Пожалуйста, введите email');
+    return false;
+  }
+  
+  if (!emailRegex.test(email)) {
+    showAuthError('Пожалуйста, введите корректный email');
+    return false;
+  }
+  
+  if (!password || password.length < 6) {
+    showAuthError('Пароль должен содержать минимум 6 символов');
+    return false;
+  }
+  
+  return true;
+}
+// Показать ошибку авторизации
+function showAuthError(message) {
+  const errorElement = document.getElementById('auth-error');
+  errorElement.textContent = message;
+  errorElement.classList.remove('hidden');
+  
+  setTimeout(() => {
+    errorElement.classList.add('hidden');
+  }, 5000);
+}
+  // Обработчик формы авторизации
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const email = document.getElementById('auth-email').value;
+  const password = document.getElementById('auth-password').value;
+  const submitBtn = document.getElementById('auth-submit');
+  const loader = document.getElementById('auth-loader');
+  
+  // Валидация
+  if (!validateAuthForm(email, password)) return;
+  
+  try {
+    // Показываем лоадер
+    submitBtn.disabled = true;
+    loader.classList.remove('hidden');
 
-        // Переключение уровня сложности
-        function changeLevel(level) {
-            currentLevel = level;
-            document.getElementById('basic-tab').className = level === 'basic' ? 'level-tab active' : 'level-tab inactive';
-            document.getElementById('advanced-tab').className = level === 'advanced' ? 'level-tab active' : 'level-tab inactive';
+// Открываем модальное окно при клике на "Авторизация" в меню
+document.querySelector('aside li:nth-child(4) a').addEventListener('click', function(e) {
+  e.preventDefault();
+  closeMenu(); // Закрываем меню
+  openAuthModal(); // Открываем авторизацию
+});
 
-            // Перегенерируем текущую задачу
-            const activeTab = document.querySelector('.tab-content.active');
-            if (activeTab) {
-                const tabId = activeTab.id;
-                if (tabId === 'deposit') generateDepositTask();
-                if (tabId === 'annuity') generateAnnuityTask();
-                if (tabId === 'diff') generateDiffTask();
-                if (tabId === 'invest') generateInvestTask();
-                if (tabId === 'ege') generateEgeTask();
-            }
-        }
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape' && !document.getElementById('auth-modal').classList.contains('hidden')) {
+    closeAuthModal();
+  }
+});
+// Обновляем интерфейс для авторизованного пользователя
+    updateUIAfterAuth(email);
+    
+  } catch (error) {
+    showAuthError(error.message || 'Ошибка при авторизации');
+  } finally {
+    submitBtn.disabled = false;
+    loader.classList.add('hidden');
+  }
+});
+// Обновление интерфейса после авторизации
+function updateUIAfterAuth(email) {
+  // Меняем кнопку меню на email пользователя
+  const menuBtn = document.querySelector('.menu-btn');
+  if (menuBtn) {
+    menuBtn.innerHTML = `
+      <span class="truncate max-w-[120px]">${email}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+      </svg>
+    `;
+  }
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+  // Обработчик клика по пункту "Авторизация" в меню
+  const authLinks = document.querySelectorAll('[data-auth-open]');
+  
+  authLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeMenu();
+      openAuthModal();
+    });
+  });
 
-        // Установка уровня сложности для задач ЕГЭ
-        function setEgeLevel(level) {
-            currentLevel = level;
-            document.getElementById('ege-basic-btn').className = level === 'basic' ? 'px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-l-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
-            document.getElementById('ege-advanced-btn').className = level === 'advanced' ? 'px-4 py-2 rounded-r-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-r-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
+  // Закрытие по клику вне модального окна
+  document.getElementById('auth-modal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeAuthModal();
+    }
+  });
+// Глобальные переменные
+let currentDepositTask = {};
+let currentAnnuityTask = {};
+let currentDiffTask = {};
+let currentInvestTask = {};
+let currentEgeTask = {};
+let score = 0;
+let totalTasks = 0;
+let answeredDeposit = false;
+let answeredAnnuity = false;
+let answeredDiff = false;
+let answeredInvest = false;
+let answeredEge = false;
+let currentLevel = 'basic'; // 'basic' или 'advanced'
+let egeTasksCompleted = 0;
+let egeTotalScore = 0;
 
-            // Сброс счетчиков при смене уровня
-            egeTasksCompleted = 0;
-            egeTotalScore = 0;
-            document.getElementById('ege-score').textContent = '0';
-            document.getElementById('ege-tasks').textContent = '0/10';
-            document.getElementById('ege-new-task-btn').disabled = false;
+// Управление боковым меню
+function toggleMenu() {
+  const sidebar = document.getElementById('sidebar-menu');
+  const overlay = document.getElementById('menu-overlay');
+  
+  // Проверка на существование элементов для надежности
+  if (sidebar && overlay) {
+    sidebar.classList.toggle('open');
+    overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+    
+    // Блокировка прокрутки тела страницы при открытом меню
+    document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+  }
+}
+// Создание анимированного фона
+function createBubbles() {
+    const container = document.getElementById('bubbles-container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    const colors = [
+        'rgba(0, 242, 255, 0.1)',
+        'rgba(180, 0, 255, 0.1)',
+        'rgba(255, 0, 195, 0.1)'
+    ];
+    
+    for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('neon-bubble');
+        
+        const size = Math.random() * 200 + 50;
+        const posX = Math.random() * window.innerWidth;
+        const posY = Math.random() * window.innerHeight;
+        const duration = Math.random() * 30 + 20;
+        const delay = Math.random() * -20;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 500 + Math.random() * 500;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        
+        bubble.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${posX}px;
+            top: ${posY}px;
+            background: ${color};
+            animation-duration: ${duration}s;
+            animation-delay: ${delay}s;
+            --tx: ${tx}px;
+            --ty: ${ty}px;
+        `;
+        
+        container.appendChild(bubble);
+    }
+}
 
-            // Генерируем новую задачу
-            generateEgeTask();
-        }
+// Управление табами
+function openTab(event, tabName) {
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.add('hidden');
+        tabContents[i].classList.remove('active');
+    }
+    
+    const tabButtons = document.getElementsByClassName('tab-btn');
+    for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('tab-active');
+        tabButtons[i].classList.add('tab-inactive');
+    }
+    
+    document.getElementById(tabName).classList.remove('hidden');
+    document.getElementById(tabName).classList.add('active');
+    event.currentTarget.classList.remove('tab-inactive');
+    event.currentTarget.classList.add('tab-active');
+    
+    // Генерация задач при переключении вкладок
+    if (tabName === 'deposit') generateDepositTask();
+    if (tabName === 'annuity') generateAnnuityTask();
+    if (tabName === 'diff') generateDiffTask();
+    if (tabName === 'invest') generateInvestTask();
+    if (tabName === 'ege') generateEgeTask();
+}
 
-        // Обновление прогресса
-        function updateProgress() {
-            let totalCorrect = 0;
-            let totalTasks = 0;
-            ['deposit', 'annuity', 'diff', 'invest', 'ege'].forEach(type => {
-                totalCorrect += parseInt(document.getElementById(`${type}-score`).textContent);
-                totalTasks += parseInt(document.getElementById(`${type}-total`).textContent);
-            });
-            const progress = totalTasks > 0 ? Math.round((totalCorrect / totalTasks) * 100) : 0;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('total-score').textContent = `${progress}%`;
-        }
+// Переключение уровня сложности
+function changeLevel(level) {
+    currentLevel = level;
+    
+    // Обновляем стили кнопок
+    document.getElementById('basic-tab').className = level === 'basic' ? 'level-tab active' : 'level-tab inactive';
+    document.getElementById('advanced-tab').className = level === 'advanced' ? 'level-tab active' : 'level-tab inactive';
+    
+    // Перегенерируем текущую задачу
+    const activeTab = document.querySelector('.tab-content.active');
+    if (activeTab) {
+        const tabId = activeTab.id;
+        if (tabId === 'deposit') generateDepositTask();
+        if (tabId === 'annuity') generateAnnuityTask();
+        if (tabId === 'diff') generateDiffTask();
+        if (tabId === 'invest') generateInvestTask();
+        if (tabId === 'ege') generateEgeTask();
+    }
+}
 
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', function() {
-            createBubbles();
-            generateDepositTask();
-            setEgeLevel('basic');
-        });
+// Установка уровня сложности для задач ЕГЭ
+function setEgeLevel(level) {
+    currentLevel = level;
+    
+    // Обновляем стили кнопок
+    document.getElementById('ege-basic-btn').className = level === 'basic' ? 'px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-l-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
+    document.getElementById('ege-advanced-btn').className = level === 'advanced' ? 'px-4 py-2 rounded-r-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-r-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
+    
+    // Сброс счетчиков при смене уровня
+    egeTasksCompleted = 0;
+    egeTotalScore = 0;
+    document.getElementById('ege-score').textContent = '0';
+    document.getElementById('ege-tasks').textContent = '0/10';
+    document.getElementById('ege-new-task-btn').disabled = false;
+    
+    // Генерируем новую задачу
+    generateEgeTask();
+}
 
-        // Проверка ответов для вкладов
+// Обновление прогресса
+function updateProgress() {
+    let totalCorrect = 0;
+    let totalTasks = 0;
+    
+    ['deposit', 'annuity', 'diff', 'invest', 'ege'].forEach(type => {
+        totalCorrect += parseInt(document.getElementById(`${type}-score`).textContent);
+        totalTasks += parseInt(document.getElementById(`${type}-total`).textContent);
+    });
+    
+    const progress = totalTasks > 0 ? Math.round((totalCorrect / totalTasks) * 100) : 0;
+    document.getElementById('progress-bar').style.width = `${progress}%`;
+    document.getElementById('total-score').textContent = `${progress}%`;
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    createBubbles();
+    generateDepositTask();
+    setEgeLevel('basic');
+});
+
+// Проверка ответов для вкладов
 function checkDepositAnswer() {
     const alertDiv = document.getElementById('deposit-alert');
     const answerInput = document.getElementById('deposit-answer');
@@ -801,126 +951,56 @@ function getYearWord(years) {
     if (lastDigit >= 2 && lastDigit <= 4) return 'года';
     return 'лет';
 }
-        // Открытие модального окна авторизации
-        function openAuthModal() {
-            document.getElementById('auth-modal').classList.add('show');
-            document.getElementById('auth-modal').classList.remove('hidden');
-            document.getElementById('auth-email').value = '';
-            document.getElementById('auth-password').value = '';
-            document.getElementById('auth-error').classList.add('hidden');
-            document.getElementById('auth-error').textContent = '';
-        }
 
-        // Закрытие модального окна авторизации
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.remove('show');
-            document.getElementById('auth-modal').classList.add('hidden');
-        }
+// Управление меню
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar-menu');
+    const overlay = document.getElementById('menu-overlay');
+    sidebar.classList.toggle('open');
+    overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+}
 
-        // Обработка формы авторизации
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-            const errorDiv = document.getElementById('auth-error');
-            
-            // Простая валидация
-            if (!email || !password) {
-                errorDiv.textContent = 'Пожалуйста, заполните все поля';
-                errorDiv.classList.remove('hidden');
-                return;
-            }
-            
-            // Имитация задержки сети
-            document.getElementById('auth-submit').disabled = true;
-            document.getElementById('auth-loader').classList.remove('hidden');
-            document.getElementById('auth-text').classList.add('hidden');
-            
-            setTimeout(() => {
-                // Здесь должен быть реальный запрос к серверу
-                document.getElementById('auth-submit').disabled = false;
-                document.getElementById('auth-loader').classList.add('hidden');
-                document.getElementById('auth-text').classList.remove('hidden');
-                
-                // Имитация успешного входа
-                alert(`Вы вошли как ${email}`);
-                closeAuthModal();
-            }, 1500);
-        });
+function closeMenu() {
+    document.getElementById('sidebar-menu').classList.remove('open');
+    document.getElementById('menu-overlay').style.display = 'none';
+}
 
-        // Управление меню
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar-menu');
-            const overlay = document.getElementById('menu-overlay');
-            sidebar.classList.toggle('open');
-            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
-        }
+// Закрытие меню при клике вне или нажатии ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeMenu();
+    }
+});
 
-        function closeMenu() {
-            document.getElementById('sidebar-menu').classList.remove('open');
-            document.getElementById('menu-overlay').style.display = 'none';
-        }
+document.getElementById('close-menu').addEventListener('click', () => {
+    closeMenu();
+});
 
-        // Закрытие меню по клику вне его или ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeMenu();
-            }
-        });
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        closeMenu();
+    }
+});
+// Функции для авторизации
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.remove('hidden');
+}
 
-        document.getElementById('close-menu').addEventListener('click', () => {
-            closeMenu();
-        });
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.add('hidden');
+}
 
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                closeMenu();
-            }
-        });
+// Обработчик формы входа
+document.getElementById('login-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  // Здесь можно добавить логику входа
+  alert('Функция входа будет реализована позже');
+  closeAuthModal();
+});
 
-        // Функция открытия модального окна авторизации
-        function openAuthModal() {
-            document.getElementById('auth-modal').classList.add('show');
-            document.getElementById('auth-modal').classList.remove('hidden');
-            document.getElementById('auth-email').value = '';
-            document.getElementById('auth-password').value = '';
-            document.getElementById('auth-error').classList.add('hidden');
-            document.getElementById('auth-error').textContent = '';
-        }
-
-        // Функция закрытия модального окна авторизации
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.remove('show');
-            document.getElementById('auth-modal').classList.add('hidden');
-        }
-
-        // Обработка формы авторизации
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-            const errorDiv = document.getElementById('auth-error');
-            
-            // Простая валидация
-            if (!email || !password) {
-                errorDiv.textContent = 'Пожалуйста, заполните все поля';
-                errorDiv.classList.remove('hidden');
-                return;
-            }
-            
-            // Имитация отправки данных
-            document.getElementById('auth-submit').disabled = true;
-            document.getElementById('auth-loader').classList.remove('hidden');
-            document.getElementById('auth-text').classList.add('hidden');
-            
-            setTimeout(() => {
-                // Здесь должна быть логика реальной авторизации
-                document.getElementById('auth-submit').disabled = false;
-                document.getElementById('auth-loader').classList.add('hidden');
-                document.getElementById('auth-text').classList.remove('hidden');
-                
-                // Имитация успешного входа
-                alert(`Вы успешно вошли как ${email}`);
-                closeAuthModal();
-            }, 1500);
-        });
+// Добавьте вызов openAuthModal() для кнопки входа в меню
+document.querySelector('aside li:nth-child(4) a').addEventListener('click', function(e) {
+  e.preventDefault();
+  toggleMenu();
+  openAuthModal();
+});
