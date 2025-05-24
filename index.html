@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый тренажёр</title>
+    <script src="https://cdn.tailwindcss.com "></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter :wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css ">
+    <style>
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-purple: #b400ff;
+            --neon-pink: #ff00c3;
+            --neon-green: #00ff9d;
+            --neon-indigo: #6a00ff;
+            --dark-bg: #0a0a1a;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .neon-card {
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .neon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+        }
+        .neon-text {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradient 6s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .btn-neon {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-neon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        }
+        .btn-neon:after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0)
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+        .btn-neon:hover:after {
+            left: 100%;
+        }
+        .neon-pulse {
+            animation: neon-pulse 2s infinite;
+        }
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
+        }
+        .tab-active {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+        .tab-inactive {
+            background: rgba(10, 10, 26, 0.7);
+            color: var(--neon-blue);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .tab-inactive:hover {
+            background: rgba(20, 20, 40, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+        }
+        .input-neon {
+            background: rgba(10, 10, 26, 0.7);
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .input-neon:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.2);
+            outline: none;
+        }
+        .progress-gradient {
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+        }
+        .neon-border {
+            position: relative;
+        }
+        .neon-border:before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
+        }
+        .neon-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,242,255,0.1) 0%, rgba(180,0,255,0.05) 70%, rgba(255,0,195,0) 100%);
+            animation: float linear infinite;
+            filter: blur(5px);
+            will-change: transform;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .theory-card {
+            background: rgba(10, 10, 26, 0.7);
+            border-left: 4px solid var(--neon-blue);
+            transition: all 0.3s ease;
+        }
+        .theory-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
+        }
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 242, 255, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: var(--neon-blue);
+            font-weight: bold;
+            border-left: 3px solid var(--neon-blue);
+        }
+        .neon-loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid transparent;
+            border-top-color: var(--neon-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .level-tab {
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .level-tab.active {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+        .level-tab.inactive {
+            background: rgba(20, 20, 40, 0.5);
+            color: var(--neon-blue);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+        .level-tab.inactive:hover {
+            background: rgba(30, 30, 60, 0.7);
+        }
+        .result-container {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.925rem;
+            line-height: 1.4;
+            box-sizing: border-box;
+            background-color: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 242, 255, 0.1);
+            overflow: hidden;
+        }
+        /* Для правильных ответов */
+        .result-container.bg-green-900\/10 {
+            background: rgba(0, 159, 80, 0.15);
+            border-color: rgba(0, 255, 128, 0.2);
+        }
+        /* Для неправильных ответов */
+        .result-container.bg-red-900\/10 {
+            background: rgba(159, 0, 50, 0.15);
+            border-color: rgba(255, 0, 80, 0.2);
+        }
+        /* Для предупреждений */
+        .result-container.bg-yellow-900\/20 {
+            background: rgba(159, 100, 0, 0.2);
+            border-color: rgba(255, 200, 0, 0.3);
+        }
+        .result-container details {
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+        .result-container summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--neon-blue);
+            font-weight: 500;
+            outline: none;
+            padding: 4px 0;
+        }
+        .result-container summary:hover {
+            color: white;
+        }
+        .result-container details[open] summary {
+            margin-bottom: 6px;
+        }
+        .result-container .font-mono {
+            font-family: 'Courier New', monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        /* Для математических формул */
+        .result-container katex {
+            font-size: 1.1em;
+        }
+        /* Для кнопки Меню */
+        .menu-panel {
+          position: fixed;
+          top: 0;
+          right: -256px;
+          width: 256px;
+          height: 100%;
+          background-color: var(--dark-bg);
+          border-left: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 50;
+          padding: 1rem;
+          transition: right 0.3s ease-in-out;
+        }
+        .menu-panel.open {
+          right: 0;
+        }
+        .menu-panel h2 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+        .menu-panel ul {
+          list-style: none;
+          padding: 0;
+        }
+        .menu-panel li {
+          margin-bottom: 1rem;
+        }
+        .menu-panel a {
+          color: var(--neon-blue);
+          text-decoration: none;
+          display: block;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          transition: background 0.3s;
+        }
+        .menu-panel a:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        .menu-close {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        .menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: none;
+          z-index: 40;
+        }
+
+        /* Модальное окно авторизации */
+        #auth-modal {
+            display: none;
+        }
+        #auth-modal.show {
+            display: flex;
+        }
+        #auth-modal .neon-loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid transparent;
+            border-top-color: #00f2ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex @0.16.4/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex @0.16.4/dist/katex.min.js"></script>
+</head>
+<body class="antialiased">
+    <!-- Animated background bubbles -->
+    <div id="bubbles-container" class="fixed inset-0 overflow-hidden -z-10"></div>
+
+    <!-- Sidebar Menu -->
+    <aside id="sidebar-menu" class="menu-panel">
+      <span id="close-menu" class="menu-close">&times;</span>
+      <h2 class="text-white">Меню</h2>
+      <ul>
+        <li><a href="#">Профиль</a></li>
+        <li><a href="#">Статистика</a></li>
+        <li><a href="#">Таблица лидеров</a></li>
+        <li><a href="#" onclick="openAuthModal()">Авторизация</a></li>
+      </ul>
+    </aside>
+    <!-- Overlay when menu is open -->
+    <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Header -->
+    <header class="relative overflow-hidden py-12">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30 opacity-50"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 neon-text animate__animated animate__fadeInDown">
+                    Финансовый тренажёр
+                </h1>
+                <p class="text-xl text-white/80 animate__animated animate__fadeIn animate__delay-1s">
+                    Освойте проценты, вклады и кредиты на практике
+                </p>
+                <div class="mt-8 animate__animated animate__fadeIn animate__delay-2s">
+                    <div class="inline-block p-1 rounded-full bg-white/10 backdrop-blur-sm">
+                        <div class="flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                            Подготовка к ЕГЭ
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <div class="neon-card neon-border rounded-2xl overflow-hidden mb-8">
+            <div class="p-6 md:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold glow-text">ФИНАНСОВЫЙ ТРЕНАЖЁР</h2>
+                    <button onclick="toggleMenu()" class="btn-neon px-4 py-2 rounded-lg flex items-center">
+                        Меню
+                    </button>
+                </div>
+
+                <!-- Level tabs -->
+                <div class="flex flex-wrap gap-3 mb-6">
+                    <div class="level-tab active" id="basic-tab" onclick="changeLevel('basic')">
+                        Базовый уровень
+                    </div>
+                    <div class="level-tab inactive" id="advanced-tab" onclick="changeLevel('advanced')">
+                        Повышенный уровень
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex flex-wrap gap-3 mb-8">
+                    <button class="tab-btn tab-active px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'deposit')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Вклады
+                    </button>
+                    <button class="tab-btn tab-inactive px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'annuity')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                        </svg>
+                        Аннуитетный кредит
+                    </button>
+                    <button class="tab-btn tab-inactive px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'diff')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                        Дифференцированный кредит
+                    </button>
+                    <button class="tab-btn tab-inactive px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'invest')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Инвестиции
+                    </button>
+                    <button class="tab-btn tab-inactive px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'ege')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        ЕГЭ
+                    </button>
+                    <button class="tab-btn tab-inactive px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'theory')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        Теория
+                    </button>
+                </div>
+
+                <!-- Вклады -->
+                <div id="deposit" class="tab-content">
+                    <div class="bg-blue-900/20 rounded-xl p-6 mb-6 neon-border">
+                        <div class="flex items-start">
+                            <div class="bg-blue-900/30 p-3 rounded-lg mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neon-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-neon-blue mb-3">ЗАДАЧА НА ВКЛАДЫ</h3>
+                                <p id="deposit-question" class="mb-4 text-white/80"></p>
+                                <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                                    <div class="w-full md:w-auto flex-1">
+                                        <label class="block text-sm font-medium text-neon-blue mb-1">Ваш ответ (руб.):</label>
+                                        <input type="number" id="deposit-answer" placeholder="Введите сумму" 
+                                            class="w-full px-4 py-3 rounded-lg input-neon focus:outline-none focus:ring-2 focus:ring-neon-blue">
+                                        <div id="deposit-alert" class="hidden text-sm mt-1 text-neon-pink"></div>
+                                    </div>
+                                    <button onclick="checkDepositAnswer()" 
+                                        class="btn-neon px-6 py-3 rounded-lg neon-pulse">
+                                        Проверить ответ
+                                    </button>
+                                </div>
+                                <div id="deposit-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="generateDepositTask()" 
+                            class="btn-neon px-6 py-3 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Новая задача
+                        </button>
+                        <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
+                            <span class="font-medium text-neon-blue" id="deposit-score">0</span> из <span class="font-medium" id="deposit-total">0</span> верно
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Аннуитетный кредит -->
+                <div id="annuity" class="tab-content hidden">
+                    <div class="bg-purple-900/20 rounded-xl p-6 mb-6 neon-border">
+                        <div class="flex items-start">
+                            <div class="bg-purple-900/30 p-3 rounded-lg mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neon-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-neon-purple mb-3">ЗАДАЧА НА АННУИТЕТНЫЙ КРЕДИТ</h3>
+                                <p id="annuity-question" class="mb-4 text-white/80"></p>
+                                <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                                    <div class="w-full md:w-auto flex-1">
+                                        <label class="block text-sm font-medium text-neon-purple mb-1">Ваш ответ (руб.):</label>
+                                        <input type="number" id="annuity-answer" placeholder="Введите сумму" 
+                                            class="w-full px-4 py-3 rounded-lg input-neon focus:outline-none focus:ring-2 focus:ring-neon-purple">
+                                        <div id="annuity-alert" class="hidden text-sm mt-1 text-neon-pink"></div>
+                                    </div>
+                                    <button onclick="checkAnnuityAnswer()" 
+                                        class="btn-neon px-6 py-3 rounded-lg neon-pulse">
+                                        Проверить ответ
+                                    </button>
+                                </div>
+                                <div id="annuity-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="generateAnnuityTask()" 
+                            class="btn-neon px-6 py-3 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Новая задача
+                        </button>
+                        <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
+                            <span class="font-medium text-neon-purple" id="annuity-score">0</span> из <span class="font-medium" id="annuity-total">0</span> верно
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Дифференцированный кредит -->
+                <div id="diff" class="tab-content hidden">
+                    <div class="bg-indigo-900/20 rounded-xl p-6 mb-6 neon-border">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-900/30 p-3 rounded-lg mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neon-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-neon-indigo mb-3">ЗАДАЧА НА ДИФФЕРЕНЦИРОВАННЫЙ КРЕДИТ</h3>
+                                <p id="diff-question" class="mb-4 text-white/80"></p>
+                                <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                                    <div class="w-full md:w-auto flex-1">
+                                        <label class="block text-sm font-medium text-neon-indigo mb-1">Ваш ответ (руб.):</label>
+                                        <input type="text" id="diff-answer" placeholder="Введите два числа через пробел" 
+                                            class="w-full px-4 py-3 rounded-lg input-neon focus:outline-none focus:ring-2 focus:ring-neon-indigo">
+                                        <div id="diff-alert" class="hidden text-sm mt-1 text-neon-pink"></div>
+                                    </div>
+                                    <button onclick="checkDiffAnswer()" 
+                                        class="btn-neon px-6 py-3 rounded-lg neon-pulse">
+                                        Проверить ответ
+                                    </button>
+                                </div>
+                                <div id="diff-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="generateDiffTask()" 
+                            class="btn-neon px-6 py-3 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Новая задача
+                        </button>
+                        <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
+                            <span class="font-medium text-neon-indigo" id="diff-score">0</span> из <span class="font-medium" id="diff-total">0</span> верно
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Инвестиции -->
+                <div id="invest" class="tab-content hidden">
+                    <div class="bg-green-900/20 rounded-xl p-6 mb-6 neon-border">
+                        <div class="flex items-start">
+                            <div class="bg-green-900/30 p-3 rounded-lg mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-neon-green mb-3">ЗАДАЧА НА ИНВЕСТИЦИИ</h3>
+                                <p id="invest-question" class="mb-4 text-white/80"></p>
+                                <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                                    <div class="w-full md:w-auto flex-1">
+                                        <label class="block text-sm font-medium text-neon-green mb-1">Ваш ответ (руб.):</label>
+                                        <input type="number" id="invest-answer" placeholder="Введите сумму" 
+                                            class="w-full px-4 py-3 rounded-lg input-neon focus:outline-none focus:ring-2 focus:ring-neon-green">
+                                        <div id="invest-alert" class="hidden text-sm mt-1 text-neon-pink"></div>
+                                    </div>
+                                    <button onclick="checkInvestAnswer()" 
+                                        class="btn-neon px-6 py-3 rounded-lg neon-pulse">
+                                        Проверить ответ
+                                    </button>
+                                </div>
+                                <div id="invest-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="generateInvestTask()" 
+                            class="btn-neon px-6 py-3 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Новая задача
+                        </button>
+                        <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
+                            <span class="font-medium text-neon-green" id="invest-score">0</span> из <span class="font-medium" id="invest-total">0</span> верно
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЕГЭ -->
+                <div id="ege" class="tab-content hidden">
+                    <div class="bg-red-900/20 rounded-xl p-6 mb-6 neon-border">
+                        <div class="flex items-start">
+                            <div class="bg-red-900/30 p-3 rounded-lg mr-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-red-500 mb-3">ЗАДАЧА ДЛЯ ПОДГОТОВКИ К ЕГЭ</h3>
+                                <div class="flex flex-col sm:flex-row gap-2 mb-4">
+                                    <button onclick="setEgeLevel('basic')" id="ege-basic-btn" class="px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500">
+                                        Базовый уровень (№15)
+                                    </button>
+                                    <button onclick="setEgeLevel('advanced')" id="ege-advanced-btn" class="px-4 py-2 rounded-r-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700">
+                                        Повышенный уровень (№17)
+                                    </button>
+                                </div>
+                                <p id="ege-question" class="mb-4 text-white/80"></p>
+                                <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
+                                    <div class="w-full md:w-auto flex-1">
+                                        <label class="block text-sm font-medium text-red-500 mb-1">Ваш ответ:</label>
+                                        <input type="text" id="ege-answer" placeholder="Введите ответ" 
+                                            class="w-full px-4 py-3 rounded-lg input-neon focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <div id="ege-alert" class="hidden text-sm mt-1 text-neon-pink"></div>
+                                    </div>
+                                    <button onclick="checkEgeAnswer()" 
+                                        class="btn-neon px-6 py-3 rounded-lg neon-pulse">
+                                        Проверить ответ
+                                    </button>
+                                </div>
+                                <div id="ege-result" class="result-container hidden neon-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <button onclick="generateEgeTask()" id="ege-new-task-btn"
+                            class="btn-neon px-6 py-3 rounded-lg flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Новая задача
+                        </button>
+                        <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
+                            <span class="font-medium text-red-500" id="ege-score">0</span> баллов | 
+                            <span class="font-medium text-red-500" id="ege-tasks">0</span>/10 задач
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Теория -->
+                <div id="theory" class="tab-content hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="theory-card rounded-lg p-6 neon-border">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-blue-900/30 p-2 rounded-full mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neon-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-neon-blue">ПРОСТЫЕ ПРОЦЕНТЫ</h3>
+                            </div>
+                            <p class="mb-3 text-white/80"><span class="font-medium">Формула:</span> <span class="formula">S = P × (1 + r × t)</span></p>
+                            <p class="text-white/80 mb-4">Где: S - итоговая сумма, P - начальная сумма, r - процентная ставка (в десятичной форме), t - время в годах.</p>
+                            <div class="bg-blue-900/20 p-4 rounded-lg neon-border">
+                                <p class="font-medium text-neon-blue mb-2">Пример:</p>
+                                <p class="text-white/80 mb-2">Вклад 10 000 руб. под 5% годовых на 3 года без капитализации:</p>
+                                <p class="formula">10 000 × (1 + 0.05 × 3) = 11 500 руб.</p>
+                            </div>
+                        </div>
+                        <div class="theory-card rounded-lg p-6 neon-border">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-purple-900/30 p-2 rounded-full mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neon-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-neon-purple">СЛОЖНЫЕ ПРОЦЕНТЫ</h3>
+                            </div>
+                            <p class="mb-3 text-white/80"><span class="font-medium">Формула:</span> <span class="formula">S = P × (1 + r)<sup>t</sup></span></p>
+                            <p class="text-white/80 mb-4">При капитализации проценты начисляются на проценты, поэтому сумма растёт быстрее.</p>
+                            <div class="bg-purple-900/20 p-4 rounded-lg neon-border">
+                                <p class="font-medium text-neon-purple mb-2">Пример:</p>
+                                <p class="text-white/80 mb-2">Вклад 10 000 руб. под 5% годовых на 3 года с капитализацией:</p>
+                                <p class="formula">10 000 × (1 + 0.05)<sup>3</sup> ≈ 11 576,25 руб.</p>
+                            </div>
+                        </div>
+                        <div class="theory-card rounded-lg p-6 neon-border">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-blue-900/30 p-2 rounded-full mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neon-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-neon-blue">АННУИТЕТНЫЙ ПЛАТЁЖ</h3>
+                            </div>
+                            <p class="mb-3 text-white/80"><span class="font-medium">Формула:</span> <span class="formula">Платёж = (P × r × (1 + r)<sup>n</sup>) / ((1 + r)<sup>n</sup> - 1)</span></p>
+                            <p class="text-white/80 mb-4">Где: P - сумма кредита, r - месячная ставка, n - количество месяцев.</p>
+                            <div class="bg-blue-900/20 p-4 rounded-lg neon-border">
+                                <p class="font-medium text-neon-blue mb-2">Пример:</p>
+                                <p class="text-white/80 mb-2">Кредит 100 000 руб. на 1 год под 12% годовых:</p>
+                                <p class="text-white/80 mb-2">Месячная ставка: 12%/12 = 1% = 0.01</p>
+                                <p class="formula">Платёж = (100000×0.01×(1+0.01)<sup>12</sup>)/((1+0.01)<sup>12</sup>-1) ≈ 8 885 руб.</p>
+                            </div>
+                        </div>
+                        <div class="theory-card rounded-lg p-6 neon-border">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-pink-900/30 p-2 rounded-full mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-neon-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold text-neon-pink">ДИФФЕРЕНЦИРОВАННЫЙ ПЛАТЁЖ</h3>
+                            </div>
+                            <p class="mb-3 text-white/80"><span class="font-medium">Формула:</span> <span class="formula">Платёж = (P / n) + (P - (P/n)×(m-1)) × r</span></p>
+                            <p class="text-white/80 mb-4">Где: n - общее число месяцев, m - текущий месяц, r - месячная ставка.</p>
+                            <div class="bg-pink-900/20 p-4 rounded-lg neon-border">
+                                <p class="font-medium text-neon-pink mb-2">Пример:</p>
+                                <p class="text-white/80 mb-2">Кредит 100 000 руб. на 1 год под 12% годовых:</p>
+                                <p class="text-white/80 mb-2">Основной платёж: 100000/12 ≈ 8 333 руб.</p>
+                                <p class="formula">Первый платёж: 8 333 + (100000 × 0.01) ≈ 9 333 руб.</p>
+                                <p class="formula">Последний платёж: 8 333 + (8 333 × 0.01) ≈ 8 416 руб.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Прогресс -->
+                <div class="mt-12">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-white/80">ВАШ ПРОГРЕСС ОБУЧЕНИЯ</h3>
+                        <span class="text-sm font-medium text-neon-blue" id="total-score">0%</span>
+                    </div>
+                    <div class="w-full bg-black/30 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar" class="h-3 rounded-full progress-gradient" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between mt-1 text-xs text-white/50">
+                        <span>НАЧИНАЮЩИЙ</span>
+                        <span>ЭКСПЕРТ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="mt-16 text-center">
+            <div class="inline-block p-1 rounded-full bg-white/10 backdrop-blur-sm shadow-lg">
+                <div class="flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Финансовая грамотность — ключ к успеху!
+                </div>
+            </div>
+            <p class="mt-6 text-white/50">© 2025 Финансовый тренажёр</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно авторизации -->
+    <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/70" onclick="closeAuthModal()"></div>
+        <div class="relative z-10 w-full max-w-md p-6">
+            <div class="bg-gray-800 rounded-xl p-6 border border-blue-500 shadow-lg">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/70 hover:text-white">
+                    ✕
+                </button>
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-blue-400 mb-2">Авторизация</h2>
+                    <p class="text-white/80">Войдите в свой аккаунт</p>
+                </div>
+                <!-- Сообщение об ошибке -->
+                <div id="auth-error" class="bg-red-900/30 text-red-400 p-3 rounded-lg mb-4 hidden"></div>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-blue-400 mb-1">Email</label>
+                        <input type="email" id="auth-email" required 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-blue-400 mb-1">Пароль</label>
+                        <input type="password" id="auth-password" required 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" id="auth-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition flex items-center justify-center">
+                        <span id="auth-text">Войти</span>
+                        <div id="auth-loader" class="hidden ml-2">
+                            <div class="neon-loader"></div>
+                        </div>
+                    </button>
+                </form>
+                <div class="mt-4 text-center text-sm text-white/70">
+                    Нет аккаунта? <a href="#" class="text-blue-400 hover:underline">Зарегистрируйтесь</a>
+                </div>
+                <div class="mt-2 text-center text-sm text-white/70">
+                    <a href="#" class="text-blue-400 hover:underline">Забыли пароль?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Глобальные переменные для приложения
+        let currentDepositTask = {};
+        let currentAnnuityTask = {};
+        let currentDiffTask = {};
+        let currentInvestTask = {};
+        let currentEgeTask = {};
+        let score = 0;
+        let totalTasks = 0;
+        let answeredDeposit = false;
+        let answeredAnnuity = false;
+        let answeredDiff = false;
+        let answeredInvest = false;
+        let answeredEge = false;
+        let currentLevel = 'basic'; // 'basic' или 'advanced'
+        let egeTasksCompleted = 0;
+        let egeTotalScore = 0;
+
+        // Создание анимированных пузырей фона
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            if (!container) return;
+            container.innerHTML = '';
+            const colors = [
+                'rgba(0, 242, 255, 0.1)',
+                'rgba(180, 0, 255, 0.1)',
+                'rgba(255, 0, 195, 0.1)'
+            ];
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'neon-bubble';
+                const size = Math.random() * 200 + 50;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 30 + 20;
+                const delay = Math.random() * -20;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 500 + Math.random() * 500;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                bubble.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${posX}px;
+                    top: ${posY}px;
+                    background: ${color};
+                    animation-duration: ${duration}s;
+                    animation-delay: ${delay}s;
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                `;
+                container.appendChild(bubble);
+            }
+        }
+
+        // Управление табами
+        function openTab(event, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.add('hidden');
+                tabContents[i].classList.remove('active');
+            }
+            const tabButtons = document.getElementsByClassName('tab-btn');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('tab-active');
+                tabButtons[i].classList.add('tab-inactive');
+            }
+            document.getElementById(tabName).classList.remove('hidden');
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.remove('tab-inactive');
+            event.currentTarget.classList.add('tab-active');
+
+            // Генерация задач при переключении вкладок
+            if (tabName === 'deposit') generateDepositTask();
+            if (tabName === 'annuity') generateAnnuityTask();
+            if (tabName === 'diff') generateDiffTask();
+            if (tabName === 'invest') generateInvestTask();
+            if (tabName === 'ege') generateEgeTask();
+        }
+
+        // Переключение уровня сложности
+        function changeLevel(level) {
+            currentLevel = level;
+            document.getElementById('basic-tab').className = level === 'basic' ? 'level-tab active' : 'level-tab inactive';
+            document.getElementById('advanced-tab').className = level === 'advanced' ? 'level-tab active' : 'level-tab inactive';
+
+            // Перегенерируем текущую задачу
+            const activeTab = document.querySelector('.tab-content.active');
+            if (activeTab) {
+                const tabId = activeTab.id;
+                if (tabId === 'deposit') generateDepositTask();
+                if (tabId === 'annuity') generateAnnuityTask();
+                if (tabId === 'diff') generateDiffTask();
+                if (tabId === 'invest') generateInvestTask();
+                if (tabId === 'ege') generateEgeTask();
+            }
+        }
+
+        // Установка уровня сложности для задач ЕГЭ
+        function setEgeLevel(level) {
+            currentLevel = level;
+            document.getElementById('ege-basic-btn').className = level === 'basic' ? 'px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-l-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
+            document.getElementById('ege-advanced-btn').className = level === 'advanced' ? 'px-4 py-2 rounded-r-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-r-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
+
+            // Сброс счетчиков при смене уровня
+            egeTasksCompleted = 0;
+            egeTotalScore = 0;
+            document.getElementById('ege-score').textContent = '0';
+            document.getElementById('ege-tasks').textContent = '0/10';
+            document.getElementById('ege-new-task-btn').disabled = false;
+
+            // Генерируем новую задачу
+            generateEgeTask();
+        }
+
+        // Обновление прогресса
+        function updateProgress() {
+            let totalCorrect = 0;
+            let totalTasks = 0;
+            ['deposit', 'annuity', 'diff', 'invest', 'ege'].forEach(type => {
+                totalCorrect += parseInt(document.getElementById(`${type}-score`).textContent);
+                totalTasks += parseInt(document.getElementById(`${type}-total`).textContent);
+            });
+            const progress = totalTasks > 0 ? Math.round((totalCorrect / totalTasks) * 100) : 0;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('total-score').textContent = `${progress}%`;
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            createBubbles();
+            generateDepositTask();
+            setEgeLevel('basic');
+        });
+
+        // Функции проверки ответов и генерации задач остаются без изменений
+        // ... (здесь должны быть все остальные JS функции из оригинального кода)
+
+        // Открытие модального окна авторизации
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.add('show');
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById('auth-email').value = '';
+            document.getElementById('auth-password').value = '';
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-error').textContent = '';
+        }
+
+        // Закрытие модального окна авторизации
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        // Обработка формы авторизации
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errorDiv = document.getElementById('auth-error');
+            
+            // Простая валидация
+            if (!email || !password) {
+                errorDiv.textContent = 'Пожалуйста, заполните все поля';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Имитация задержки сети
+            document.getElementById('auth-submit').disabled = true;
+            document.getElementById('auth-loader').classList.remove('hidden');
+            document.getElementById('auth-text').classList.add('hidden');
+            
+            setTimeout(() => {
+                // Здесь должен быть реальный запрос к серверу
+                document.getElementById('auth-submit').disabled = false;
+                document.getElementById('auth-loader').classList.add('hidden');
+                document.getElementById('auth-text').classList.remove('hidden');
+                
+                // Имитация успешного входа
+                alert(`Вы вошли как ${email}`);
+                closeAuthModal();
+            }, 1500);
+        });
+
+        // Управление меню
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar-menu');
+            const overlay = document.getElementById('menu-overlay');
+            sidebar.classList.toggle('open');
+            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
+        }
+
+        function closeMenu() {
+            document.getElementById('sidebar-menu').classList.remove('open');
+            document.getElementById('menu-overlay').style.display = 'none';
+        }
+
+        // Закрытие меню по клику вне его или ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        document.getElementById('close-menu').addEventListener('click', () => {
+            closeMenu();
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                closeMenu();
+            }
+        });
+
+        // Функция открытия модального окна авторизации
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.add('show');
+            document.getElementById('auth-modal').classList.remove('hidden');
+            document.getElementById('auth-email').value = '';
+            document.getElementById('auth-password').value = '';
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-error').textContent = '';
+        }
+
+        // Функция закрытия модального окна авторизации
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('show');
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        // Обработка формы авторизации
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+            const errorDiv = document.getElementById('auth-error');
+            
+            // Простая валидация
+            if (!email || !password) {
+                errorDiv.textContent = 'Пожалуйста, заполните все поля';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Имитация отправки данных
+            document.getElementById('auth-submit').disabled = true;
+            document.getElementById('auth-loader').classList.remove('hidden');
+            document.getElementById('auth-text').classList.add('hidden');
+            
+            setTimeout(() => {
+                // Здесь должна быть логика реальной авторизации
+                document.getElementById('auth-submit').disabled = false;
+                document.getElementById('auth-loader').classList.add('hidden');
+                document.getElementById('auth-text').classList.remove('hidden');
+                
+                // Имитация успешного входа
+                alert(`Вы успешно вошли как ${email}`);
+                closeAuthModal();
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
