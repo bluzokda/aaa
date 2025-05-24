@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Финансовый тренажёр</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.tailwindcss.com "></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter :wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css ">
     <style>
         :root {
             --neon-blue: #00f2ff;
@@ -16,7 +16,6 @@
             --neon-indigo: #6a00ff;
             --dark-bg: #0a0a1a;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
@@ -24,7 +23,6 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
         .neon-card {
             background: rgba(10, 10, 26, 0.7);
             backdrop-filter: blur(12px);
@@ -34,12 +32,10 @@
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         .neon-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
         }
-
         .neon-text {
             background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
             -webkit-background-clip: text;
@@ -48,13 +44,11 @@
             background-size: 300% 300%;
             animation: gradient 6s ease infinite;
         }
-
         @keyframes gradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
         .btn-neon {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             color: white;
@@ -64,12 +58,10 @@
             position: relative;
             overflow: hidden;
         }
-
         .btn-neon:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
         }
-
         .btn-neon:after {
             content: '';
             position: absolute;
@@ -85,61 +77,50 @@
             transform: rotate(30deg);
             transition: all 0.5s ease;
         }
-
         .btn-neon:hover:after {
             left: 100%;
         }
-
         .neon-pulse {
             animation: neon-pulse 2s infinite;
         }
-
         @keyframes neon-pulse {
             0% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.4); }
             70% { box-shadow: 0 0 0 15px rgba(0, 242, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 242, 255, 0); }
         }
-
         .tab-active {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             color: white;
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
         }
-
         .tab-inactive {
             background: rgba(10, 10, 26, 0.7);
             color: var(--neon-blue);
             border: 1px solid rgba(0, 242, 255, 0.2);
             transition: all 0.3s ease;
         }
-
         .tab-inactive:hover {
             background: rgba(20, 20, 40, 0.9);
             transform: translateY(-2px);
             box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
         }
-
         .input-neon {
             background: rgba(10, 10, 26, 0.7);
             border: 1px solid rgba(0, 242, 255, 0.3);
             color: white;
             transition: all 0.3s ease;
         }
-
         .input-neon:focus {
             border-color: var(--neon-blue);
             box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.2);
             outline: none;
         }
-
         .progress-gradient {
             background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
         }
-
         .neon-border {
             position: relative;
         }
-
         .neon-border:before {
             content: '';
             position: absolute;
@@ -152,11 +133,9 @@
             mask-composite: exclude;
             pointer-events: none;
         }
-
         .glow-text {
             text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
         }
-
         .neon-bubble {
             position: absolute;
             border-radius: 50%;
@@ -166,7 +145,6 @@
             will-change: transform;
             pointer-events: none;
         }
-
         @keyframes float {
             0% {
                 transform: translate(0, 0) rotate(0deg);
@@ -177,18 +155,15 @@
                 opacity: 0;
             }
         }
-
         .theory-card {
             background: rgba(10, 10, 26, 0.7);
             border-left: 4px solid var(--neon-blue);
             transition: all 0.3s ease;
         }
-
         .theory-card:hover {
             transform: translateX(5px);
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.1);
         }
-
         .formula {
             font-family: 'Courier New', monospace;
             background: rgba(0, 242, 255, 0.1);
@@ -198,7 +173,6 @@
             font-weight: bold;
             border-left: 3px solid var(--neon-blue);
         }
-
         .neon-loader {
             width: 24px;
             height: 24px;
@@ -207,12 +181,10 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         .level-tab {
             padding: 8px 16px;
             border-radius: 9999px;
@@ -220,177 +192,172 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .level-tab.active {
             background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
             color: white;
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
         }
-
         .level-tab.inactive {
             background: rgba(20, 20, 40, 0.5);
             color: var(--neon-blue);
             border: 1px solid rgba(0, 242, 255, 0.2);
         }
-
         .level-tab.inactive:hover {
             background: rgba(30, 30, 60, 0.7);
         }
-        ..result-container {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    margin-top: 12px;
-    font-size: 0.925rem;
-    line-height: 1.4;
-    box-sizing: border-box;
-    background-color: rgba(10, 10, 26, 0.85);
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 242, 255, 0.1);
-    overflow: hidden;
-}
+        .result-container {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 0.925rem;
+            line-height: 1.4;
+            box-sizing: border-box;
+            background-color: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 242, 255, 0.1);
+            overflow: hidden;
+        }
+        /* Для правильных ответов */
+        .result-container.bg-green-900\/10 {
+            background: rgba(0, 159, 80, 0.15);
+            border-color: rgba(0, 255, 128, 0.2);
+        }
+        /* Для неправильных ответов */
+        .result-container.bg-red-900\/10 {
+            background: rgba(159, 0, 50, 0.15);
+            border-color: rgba(255, 0, 80, 0.2);
+        }
+        /* Для предупреждений */
+        .result-container.bg-yellow-900\/20 {
+            background: rgba(159, 100, 0, 0.2);
+            border-color: rgba(255, 200, 0, 0.3);
+        }
+        .result-container details {
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+        .result-container summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            color: var(--neon-blue);
+            font-weight: 500;
+            outline: none;
+            padding: 4px 0;
+        }
+        .result-container summary:hover {
+            color: white;
+        }
+        .result-container details[open] summary {
+            margin-bottom: 6px;
+        }
+        .result-container .font-mono {
+            font-family: 'Courier New', monospace;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        /* Для математических формул */
+        .result-container katex {
+            font-size: 1.1em;
+        }
+        /* Для кнопки Меню */
+        .menu-panel {
+          position: fixed;
+          top: 0;
+          right: -256px;
+          width: 256px;
+          height: 100%;
+          background-color: var(--dark-bg);
+          border-left: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 50;
+          padding: 1rem;
+          transition: right 0.3s ease-in-out;
+        }
+        .menu-panel.open {
+          right: 0;
+        }
+        .menu-panel h2 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+        .menu-panel ul {
+          list-style: none;
+          padding: 0;
+        }
+        .menu-panel li {
+          margin-bottom: 1rem;
+        }
+        .menu-panel a {
+          color: var(--neon-blue);
+          text-decoration: none;
+          display: block;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          transition: background 0.3s;
+        }
+        .menu-panel a:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        .menu-close {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        .menu-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: none;
+          z-index: 40;
+        }
 
-/* Для правильных ответов */
-.result-container.bg-green-900\/10 {
-    background: rgba(0, 159, 80, 0.15);
-    border-color: rgba(0, 255, 128, 0.2);
-}
-
-/* Для неправильных ответов */
-.result-container.bg-red-900\/10 {
-    background: rgba(159, 0, 50, 0.15);
-    border-color: rgba(255, 0, 80, 0.2);
-}
-
-/* Для предупреждений */
-.result-container.bg-yellow-900\/20 {
-    background: rgba(159, 100, 0, 0.2);
-    border-color: rgba(255, 200, 0, 0.3);
-}
-
-.result-container details {
-    transition: all 0.2s ease;
-    margin-top: 8px;
-}
-
-.result-container summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    color: var(--neon-blue);
-    font-weight: 500;
-    outline: none;
-    padding: 4px 0;
-}
-
-.result-container summary:hover {
-    color: white;
-}
-
-.result-container details[open] summary {
-    margin-bottom: 6px;
-}
-
-.result-container .font-mono {
-    font-family: 'Courier New', monospace;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
-    display: inline-block;
-}
-
-    /* Для математических формул */
-    .result-container katex {
-        font-size: 1.1em;
-    }
-    
-    /* Для кнопки Меню */
-    .menu-panel {
-      position: fixed;
-      top: 0;
-      right: -256px;
-      width: 256px;
-      height: 100%;
-      background-color: var(--dark-bg);
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 50;
-      padding: 1rem;
-      transition: right 0.3s ease-in-out;
-    }
-
-    .menu-panel.open {
-      right: 0;
-    }
-
-    .menu-panel h2 {
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-
-    .menu-panel ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .menu-panel li {
-      margin-bottom: 1rem;
-    }
-
-    .menu-panel a {
-      color: var(--neon-blue);
-      text-decoration: none;
-      display: block;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      transition: background 0.3s;
-    }
-
-    .menu-panel a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .menu-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      z-index: 40;
-    }
-  </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+        /* Модальное окно авторизации */
+        #auth-modal {
+            display: none;
+        }
+        #auth-modal.show {
+            display: flex;
+        }
+        #auth-modal .neon-loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid transparent;
+            border-top-color: #00f2ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex @0.16.4/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex @0.16.4/dist/katex.min.js"></script>
 </head>
 <body class="antialiased">
     <!-- Animated background bubbles -->
     <div id="bubbles-container" class="fixed inset-0 overflow-hidden -z-10"></div>
-<!-- Sidebar Menu -->
-<aside id="sidebar-menu" class="menu-panel">
-  <span id="close-menu" class="menu-close">&times;</span>
-  <h2 class="text-white">Меню</h2>
-  <ul>
-    <li><a href="#">Профиль</a></li>
-    <li><a href="#">Статистика</a></li>
-    <li><a href="#">Таблица лидеров</a></li>
-    <li><a href="#">Авторизация</a></li>
-  </ul>
-</aside>
 
-<!-- Overlay when menu is open -->
-<div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+    <!-- Sidebar Menu -->
+    <aside id="sidebar-menu" class="menu-panel">
+      <span id="close-menu" class="menu-close">&times;</span>
+      <h2 class="text-white">Меню</h2>
+      <ul>
+        <li><a href="#">Профиль</a></li>
+        <li><a href="#">Статистика</a></li>
+        <li><a href="#">Таблица лидеров</a></li>
+        <li><a href="#" onclick="openAuthModal()">Авторизация</a></li>
+      </ul>
+    </aside>
+    <!-- Overlay when menu is open -->
+    <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
 
     <!-- Header -->
     <header class="relative overflow-hidden py-12">
@@ -419,17 +386,17 @@
 
     <!-- Main content -->
     <div class="container mx-auto px-4 py-12 max-w-6xl">
-  <div class="neon-card neon-border rounded-2xl overflow-hidden mb-8">
-    <div class="p-6 md:p-8">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold glow-text">ФИНАНСОВЫЙ ТРЕНАЖЁР</h2>
-        <button onclick="toggleMenu()" class="btn-neon px-4 py-2 rounded-lg flex items-center">
-          Меню
-        </button>
-      </div>
-                
+        <div class="neon-card neon-border rounded-2xl overflow-hidden mb-8">
+            <div class="p-6 md:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold glow-text">ФИНАНСОВЫЙ ТРЕНАЖЁР</h2>
+                    <button onclick="toggleMenu()" class="btn-neon px-4 py-2 rounded-lg flex items-center">
+                        Меню
+                    </button>
+                </div>
+
                 <!-- Level tabs -->
-                <div class="flex gap-3 mb-6">
+                <div class="flex flex-wrap gap-3 mb-6">
                     <div class="level-tab active" id="basic-tab" onclick="changeLevel('basic')">
                         Базовый уровень
                     </div>
@@ -437,7 +404,7 @@
                         Повышенный уровень
                     </div>
                 </div>
-                
+
                 <!-- Tabs -->
                 <div class="flex flex-wrap gap-3 mb-8">
                     <button class="tab-btn tab-active px-5 py-3 rounded-full font-medium flex items-center" onclick="openTab(event, 'deposit')">
@@ -477,7 +444,7 @@
                         Теория
                     </button>
                 </div>
-                
+
                 <!-- Вклады -->
                 <div id="deposit" class="tab-content">
                     <div class="bg-blue-900/20 rounded-xl p-6 mb-6 neon-border">
@@ -490,7 +457,6 @@
                             <div class="flex-1">
                                 <h3 class="text-xl font-semibold text-neon-blue mb-3">ЗАДАЧА НА ВКЛАДЫ</h3>
                                 <p id="deposit-question" class="mb-4 text-white/80"></p>
-                                
                                 <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
                                     <div class="w-full md:w-auto flex-1">
                                         <label class="block text-sm font-medium text-neon-blue mb-1">Ваш ответ (руб.):</label>
@@ -503,12 +469,10 @@
                                         Проверить ответ
                                     </button>
                                 </div>
-                                
                                 <div id="deposit-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between items-center">
                         <button onclick="generateDepositTask()" 
                             class="btn-neon px-6 py-3 rounded-lg flex items-center">
@@ -517,13 +481,12 @@
                             </svg>
                             Новая задача
                         </button>
-                        
                         <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
                             <span class="font-medium text-neon-blue" id="deposit-score">0</span> из <span class="font-medium" id="deposit-total">0</span> верно
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Аннуитетный кредит -->
                 <div id="annuity" class="tab-content hidden">
                     <div class="bg-purple-900/20 rounded-xl p-6 mb-6 neon-border">
@@ -536,7 +499,6 @@
                             <div class="flex-1">
                                 <h3 class="text-xl font-semibold text-neon-purple mb-3">ЗАДАЧА НА АННУИТЕТНЫЙ КРЕДИТ</h3>
                                 <p id="annuity-question" class="mb-4 text-white/80"></p>
-                                
                                 <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
                                     <div class="w-full md:w-auto flex-1">
                                         <label class="block text-sm font-medium text-neon-purple mb-1">Ваш ответ (руб.):</label>
@@ -549,12 +511,10 @@
                                         Проверить ответ
                                     </button>
                                 </div>
-                                
                                 <div id="annuity-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between items-center">
                         <button onclick="generateAnnuityTask()" 
                             class="btn-neon px-6 py-3 rounded-lg flex items-center">
@@ -563,13 +523,12 @@
                             </svg>
                             Новая задача
                         </button>
-                        
                         <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
                             <span class="font-medium text-neon-purple" id="annuity-score">0</span> из <span class="font-medium" id="annuity-total">0</span> верно
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Дифференцированный кредит -->
                 <div id="diff" class="tab-content hidden">
                     <div class="bg-indigo-900/20 rounded-xl p-6 mb-6 neon-border">
@@ -582,7 +541,6 @@
                             <div class="flex-1">
                                 <h3 class="text-xl font-semibold text-neon-indigo mb-3">ЗАДАЧА НА ДИФФЕРЕНЦИРОВАННЫЙ КРЕДИТ</h3>
                                 <p id="diff-question" class="mb-4 text-white/80"></p>
-                                
                                 <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
                                     <div class="w-full md:w-auto flex-1">
                                         <label class="block text-sm font-medium text-neon-indigo mb-1">Ваш ответ (руб.):</label>
@@ -595,12 +553,10 @@
                                         Проверить ответ
                                     </button>
                                 </div>
-                                
                                 <div id="diff-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between items-center">
                         <button onclick="generateDiffTask()" 
                             class="btn-neon px-6 py-3 rounded-lg flex items-center">
@@ -609,13 +565,12 @@
                             </svg>
                             Новая задача
                         </button>
-                        
                         <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
                             <span class="font-medium text-neon-indigo" id="diff-score">0</span> из <span class="font-medium" id="diff-total">0</span> верно
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Инвестиции -->
                 <div id="invest" class="tab-content hidden">
                     <div class="bg-green-900/20 rounded-xl p-6 mb-6 neon-border">
@@ -628,7 +583,6 @@
                             <div class="flex-1">
                                 <h3 class="text-xl font-semibold text-neon-green mb-3">ЗАДАЧА НА ИНВЕСТИЦИИ</h3>
                                 <p id="invest-question" class="mb-4 text-white/80"></p>
-                                
                                 <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
                                     <div class="w-full md:w-auto flex-1">
                                         <label class="block text-sm font-medium text-neon-green mb-1">Ваш ответ (руб.):</label>
@@ -641,12 +595,10 @@
                                         Проверить ответ
                                     </button>
                                 </div>
-                                
                                 <div id="invest-result" class="mt-4 p-4 rounded-lg hidden neon-border"></div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between items-center">
                         <button onclick="generateInvestTask()" 
                             class="btn-neon px-6 py-3 rounded-lg flex items-center">
@@ -655,13 +607,12 @@
                             </svg>
                             Новая задача
                         </button>
-                        
                         <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
                             <span class="font-medium text-neon-green" id="invest-score">0</span> из <span class="font-medium" id="invest-total">0</span> верно
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- ЕГЭ -->
                 <div id="ege" class="tab-content hidden">
                     <div class="bg-red-900/20 rounded-xl p-6 mb-6 neon-border">
@@ -673,7 +624,7 @@
                             </div>
                             <div class="flex-1">
                                 <h3 class="text-xl font-semibold text-red-500 mb-3">ЗАДАЧА ДЛЯ ПОДГОТОВКИ К ЕГЭ</h3>
-                                <div class="flex mb-4">
+                                <div class="flex flex-col sm:flex-row gap-2 mb-4">
                                     <button onclick="setEgeLevel('basic')" id="ege-basic-btn" class="px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500">
                                         Базовый уровень (№15)
                                     </button>
@@ -682,7 +633,6 @@
                                     </button>
                                 </div>
                                 <p id="ege-question" class="mb-4 text-white/80"></p>
-                                
                                 <div class="flex flex-col md:flex-row gap-4 items-start md:items-end">
                                     <div class="w-full md:w-auto flex-1">
                                         <label class="block text-sm font-medium text-red-500 mb-1">Ваш ответ:</label>
@@ -695,12 +645,10 @@
                                         Проверить ответ
                                     </button>
                                 </div>
-                                
                                 <div id="ege-result" class="result-container hidden neon-border"></div>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="flex justify-between items-center">
                         <button onclick="generateEgeTask()" id="ege-new-task-btn"
                             class="btn-neon px-6 py-3 rounded-lg flex items-center">
@@ -709,14 +657,13 @@
                             </svg>
                             Новая задача
                         </button>
-                        
                         <div class="text-sm text-white/60 bg-black/30 px-4 py-2 rounded-full neon-border">
                             <span class="font-medium text-red-500" id="ege-score">0</span> баллов | 
                             <span class="font-medium text-red-500" id="ege-tasks">0</span>/10 задач
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Теория -->
                 <div id="theory" class="tab-content hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -737,7 +684,6 @@
                                 <p class="formula">10 000 × (1 + 0.05 × 3) = 11 500 руб.</p>
                             </div>
                         </div>
-                        
                         <div class="theory-card rounded-lg p-6 neon-border">
                             <div class="flex items-center mb-4">
                                 <div class="bg-purple-900/30 p-2 rounded-full mr-3">
@@ -755,7 +701,6 @@
                                 <p class="formula">10 000 × (1 + 0.05)<sup>3</sup> ≈ 11 576,25 руб.</p>
                             </div>
                         </div>
-                        
                         <div class="theory-card rounded-lg p-6 neon-border">
                             <div class="flex items-center mb-4">
                                 <div class="bg-blue-900/30 p-2 rounded-full mr-3">
@@ -774,7 +719,6 @@
                                 <p class="formula">Платёж = (100000×0.01×(1+0.01)<sup>12</sup>)/((1+0.01)<sup>12</sup>-1) ≈ 8 885 руб.</p>
                             </div>
                         </div>
-                        
                         <div class="theory-card rounded-lg p-6 neon-border">
                             <div class="flex items-center mb-4">
                                 <div class="bg-pink-900/30 p-2 rounded-full mr-3">
@@ -796,7 +740,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Прогресс -->
                 <div class="mt-12">
                     <div class="flex items-center justify-between mb-3">
@@ -813,7 +757,6 @@
                 </div>
             </div>
         </div>
-        
         <footer class="mt-16 text-center">
             <div class="inline-block p-1 rounded-full bg-white/10 backdrop-blur-sm shadow-lg">
                 <div class="flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full">
@@ -827,939 +770,47 @@
         </footer>
     </div>
 
-    <script>
-        // Глобальные переменные
-        let currentDepositTask = {};
-        let currentAnnuityTask = {};
-        let currentDiffTask = {};
-        let currentInvestTask = {};
-        let currentEgeTask = {};
-        let score = 0;
-        let totalTasks = 0;
-        let answeredDeposit = false;
-        let answeredAnnuity = false;
-        let answeredDiff = false;
-        let answeredInvest = false;
-        let answeredEge = false;
-        let currentLevel = 'basic'; // 'basic' или 'advanced'
-        let egeTasksCompleted = 0;
-        let egeTotalScore = 0;
-
-        // Создание анимированного фона
-        function createBubbles() {
-            const container = document.getElementById('bubbles-container');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            const colors = [
-                'rgba(0, 242, 255, 0.1)',
-                'rgba(180, 0, 255, 0.1)',
-                'rgba(255, 0, 195, 0.1)'
-            ];
-            
-            for (let i = 0; i < 20; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('neon-bubble');
-                
-                const size = Math.random() * 200 + 50;
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                const duration = Math.random() * 30 + 20;
-                const delay = Math.random() * -20;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 500 + Math.random() * 500;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
-                
-                bubble.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${posX}px;
-                    top: ${posY}px;
-                    background: ${color};
-                    animation-duration: ${duration}s;
-                    animation-delay: ${delay}s;
-                    --tx: ${tx}px;
-                    --ty: ${ty}px;
-                `;
-                
-                container.appendChild(bubble);
-            }
-        }
-
-        // Управление табами
-        function openTab(event, tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.add('hidden');
-                tabContents[i].classList.remove('active');
-            }
-            
-            const tabButtons = document.getElementsByClassName('tab-btn');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('tab-active');
-                tabButtons[i].classList.add('tab-inactive');
-            }
-            
-            document.getElementById(tabName).classList.remove('hidden');
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.remove('tab-inactive');
-            event.currentTarget.classList.add('tab-active');
-            
-            // Генерация задач при переключении вкладок
-            if (tabName === 'deposit') generateDepositTask();
-            if (tabName === 'annuity') generateAnnuityTask();
-            if (tabName === 'diff') generateDiffTask();
-            if (tabName === 'invest') generateInvestTask();
-            if (tabName === 'ege') generateEgeTask();
-        }
-
-        // Переключение уровня сложности
-        function changeLevel(level) {
-            currentLevel = level;
-            
-            // Обновляем стили кнопок
-            document.getElementById('basic-tab').className = level === 'basic' ? 'level-tab active' : 'level-tab inactive';
-            document.getElementById('advanced-tab').className = level === 'advanced' ? 'level-tab active' : 'level-tab inactive';
-            
-            // Перегенерируем текущую задачу
-            const activeTab = document.querySelector('.tab-content.active');
-            if (activeTab) {
-                const tabId = activeTab.id;
-                if (tabId === 'deposit') generateDepositTask();
-                if (tabId === 'annuity') generateAnnuityTask();
-                if (tabId === 'diff') generateDiffTask();
-                if (tabId === 'invest') generateInvestTask();
-                if (tabId === 'ege') generateEgeTask();
-            }
-        }
-
-        // Установка уровня сложности для задач ЕГЭ
-        function setEgeLevel(level) {
-            currentLevel = level;
-            
-            // Обновляем стили кнопок
-            document.getElementById('ege-basic-btn').className = level === 'basic' ? 'px-4 py-2 rounded-l-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-l-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
-            document.getElementById('ege-advanced-btn').className = level === 'advanced' ? 'px-4 py-2 rounded-r-lg font-medium bg-red-900/50 text-white border border-red-500' : 'px-4 py-2 rounded-r-lg font-medium bg-gray-800/50 text-white/70 border border-gray-700';
-            
-            // Сброс счетчиков при смене уровня
-            egeTasksCompleted = 0;
-            egeTotalScore = 0;
-            document.getElementById('ege-score').textContent = '0';
-            document.getElementById('ege-tasks').textContent = '0/10';
-            document.getElementById('ege-new-task-btn').disabled = false;
-            
-            // Генерируем новую задачу
-            generateEgeTask();
-        }
-
-        // Обновление прогресса
-        function updateProgress() {
-            let totalCorrect = 0;
-            let totalTasks = 0;
-            
-            ['deposit', 'annuity', 'diff', 'invest', 'ege'].forEach(type => {
-                totalCorrect += parseInt(document.getElementById(`${type}-score`).textContent);
-                totalTasks += parseInt(document.getElementById(`${type}-total`).textContent);
-            });
-            
-            const progress = totalTasks > 0 ? Math.round((totalCorrect / totalTasks) * 100) : 0;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-            document.getElementById('total-score').textContent = `${progress}%`;
-        }
-
-        // Инициализация
-        document.addEventListener('DOMContentLoaded', function() {
-            createBubbles();
-            generateDepositTask();
-            setEgeLevel('basic');
-        });
-
-        function checkDepositAnswer() {
-            const alertDiv = document.getElementById('deposit-alert');
-            const answerInput = document.getElementById('deposit-answer');
-            const resultDiv = document.getElementById('deposit-result');
-            
-            if (answeredDeposit) {
-                resultDiv.textContent = "Вы уже ответили! Нажмите 'Новая задача'.";
-                resultDiv.className = 'bg-yellow-900/20 text-yellow-400 neon-border';
-                resultDiv.classList.remove('hidden');
-                return;
-            }
-            
-            const userInput = answerInput.value;
-            const userAnswer = parseFloat(userInput);
-            
-            if (isNaN(userAnswer)) {
-                alertDiv.textContent = 'Пожалуйста, введите корректное число';
-                alertDiv.classList.remove('hidden');
-                return;
-            }
-            
-            answeredDeposit = true;
-            totalTasks++;
-            
-            const roundedAnswer = Math.round(userAnswer * 100) / 100;
-            const isCorrect = Math.abs(roundedAnswer - currentDepositTask.correct) < 0.01;
-            
-            if (isCorrect) {
-                resultDiv.textContent = `✅ Правильно! Ответ: ${currentDepositTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-green-900/20 text-green-400 neon-border';
-                score++;
-            } else {
-                resultDiv.textContent = `❌ Неправильно. Правильный ответ: ${currentDepositTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-red-900/20 text-red-400 neon-border';
-            }
-            
-            resultDiv.classList.remove('hidden');
-            answerInput.disabled = true;
-            
-            const scoreSpan = document.getElementById('deposit-score');
-            scoreSpan.textContent = parseInt(scoreSpan.textContent) + (isCorrect ? 1 : 0);
-            const totalSpan = document.getElementById('deposit-total');
-            totalSpan.textContent = parseInt(totalSpan.textContent) + 1;
-            
-            updateProgress();
-        }
-
-        function checkAnnuityAnswer() {
-            const alertDiv = document.getElementById('annuity-alert');
-            const answerInput = document.getElementById('annuity-answer');
-            const resultDiv = document.getElementById('annuity-result');
-            
-            if (answeredAnnuity) {
-                resultDiv.textContent = "Вы уже ответили! Нажмите 'Новая задача'.";
-                resultDiv.className = 'bg-yellow-900/20 text-yellow-400 neon-border';
-                resultDiv.classList.remove('hidden');
-                return;
-            }
-            
-            const userInput = answerInput.value;
-            const userAnswer = parseFloat(userInput);
-            
-            if (isNaN(userAnswer)) {
-                alertDiv.textContent = 'Пожалуйста, введите корректное число';
-                alertDiv.classList.remove('hidden');
-                return;
-            }
-            
-            answeredAnnuity = true;
-            totalTasks++;
-            
-            const roundedAnswer = Math.round(userAnswer * 100) / 100;
-            const isCorrect = Math.abs(roundedAnswer - currentAnnuityTask.correct) < 0.01;
-            
-            if (isCorrect) {
-                resultDiv.textContent = `✅ Правильно! Ответ: ${currentAnnuityTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-green-900/20 text-green-400 neon-border';
-                score++;
-            } else {
-                resultDiv.textContent = `❌ Неправильно. Правильный ответ: ${currentAnnuityTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-red-900/20 text-red-400 neon-border';
-            }
-            
-            resultDiv.classList.remove('hidden');
-            answerInput.disabled = true;
-            
-            const scoreSpan = document.getElementById('annuity-score');
-            scoreSpan.textContent = parseInt(scoreSpan.textContent) + (isCorrect ? 1 : 0);
-            const totalSpan = document.getElementById('annuity-total');
-            totalSpan.textContent = parseInt(totalSpan.textContent) + 1;
-            
-            updateProgress();
-        }
-
-        function checkDiffAnswer() {
-            const alertDiv = document.getElementById('diff-alert');
-            const answerInput = document.getElementById('diff-answer');
-            const resultDiv = document.getElementById('diff-result');
-            
-            if (answeredDiff) {
-                resultDiv.textContent = "Вы уже ответили! Нажмите 'Новая задача'.";
-                resultDiv.className = 'bg-yellow-900/20 text-yellow-400 neon-border';
-                resultDiv.classList.remove('hidden');
-                return;
-            }
-            
-            const userInput = answerInput.value;
-            const parts = userInput.trim().split(/\s+/);
-            
-            if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) {
-                alertDiv.textContent = 'Пожалуйста, введите два числа через пробел';
-                alertDiv.classList.remove('hidden');
-                return;
-            }
-            
-            answeredDiff = true;
-            totalTasks++;
-            
-            const userAnswer1 = parseFloat(parts[0]);
-            const userAnswer2 = parseFloat(parts[1]);
-            const isCorrect = Math.abs(userAnswer1 - currentDiffTask.firstPayment) < 0.01 && 
-                             Math.abs(userAnswer2 - currentDiffTask.lastPayment) < 0.01;
-            
-            if (isCorrect) {
-                resultDiv.textContent = `✅ Правильно! Ответ: ${currentDiffTask.firstPayment.toLocaleString('ru-RU')} руб. и ${currentDiffTask.lastPayment.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-green-900/20 text-green-400 neon-border';
-                score++;
-            } else {
-                resultDiv.textContent = `❌ Неправильно. Правильный ответ: ${currentDiffTask.firstPayment.toLocaleString('ru-RU')} руб. и ${currentDiffTask.lastPayment.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-red-900/20 text-red-400 neon-border';
-            }
-            
-            resultDiv.classList.remove('hidden');
-            answerInput.disabled = true;
-            
-            const scoreSpan = document.getElementById('diff-score');
-            scoreSpan.textContent = parseInt(scoreSpan.textContent) + (isCorrect ? 1 : 0);
-            const totalSpan = document.getElementById('diff-total');
-            totalSpan.textContent = parseInt(totalSpan.textContent) + 1;
-            
-            updateProgress();
-        }
-
-        function checkInvestAnswer() {
-            const alertDiv = document.getElementById('invest-alert');
-            const answerInput = document.getElementById('invest-answer');
-            const resultDiv = document.getElementById('invest-result');
-            
-            if (answeredInvest) {
-                resultDiv.textContent = "Вы уже ответили! Нажмите 'Новая задача'.";
-                resultDiv.className = 'bg-yellow-900/20 text-yellow-400 neon-border';
-                resultDiv.classList.remove('hidden');
-                return;
-            }
-            
-            const userInput = answerInput.value;
-            const userAnswer = parseFloat(userInput);
-            
-            if (isNaN(userAnswer)) {
-                alertDiv.textContent = 'Пожалуйста, введите корректное число';
-                alertDiv.classList.remove('hidden');
-                return;
-            }
-            
-            answeredInvest = true;
-            totalTasks++;
-            
-            const roundedAnswer = Math.round(userAnswer * 100) / 100;
-            const isCorrect = Math.abs(roundedAnswer - currentInvestTask.correct) < 0.01;
-            
-            if (isCorrect) {
-                resultDiv.textContent = `✅ Правильно! Ответ: ${currentInvestTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-green-900/20 text-green-400 neon-border';
-                score++;
-            } else {
-                resultDiv.textContent = `❌ Неправильно. Правильный ответ: ${currentInvestTask.correct.toLocaleString('ru-RU')} руб.`;
-                resultDiv.className = 'bg-red-900/20 text-red-400 neon-border';
-            }
-            
-            resultDiv.classList.remove('hidden');
-            answerInput.disabled = true;
-            
-            const scoreSpan = document.getElementById('invest-score');
-            scoreSpan.textContent = parseInt(scoreSpan.textContent) + (isCorrect ? 1 : 0);
-            const totalSpan = document.getElementById('invest-total');
-            totalSpan.textContent = parseInt(totalSpan.textContent) + 1;
-            
-            updateProgress();
-        }
-
-        function checkEgeAnswer() {
-    const alertDiv = document.getElementById('ege-alert');
-    const answerInput = document.getElementById('ege-answer');
-    const resultDiv = document.getElementById('ege-result');
-    
-    if (answeredEge) {
-        resultDiv.innerHTML = `
-            <div class="flex items-start">
-                <div class="mr-2">⚠️</div>
-                <div>Вы уже ответили! Нажмите 'Новая задача'.</div>
-            </div>
-        `;
-        resultDiv.className = 'result-container bg-yellow-900/20 text-yellow-400 neon-border';
-        resultDiv.classList.remove('hidden');
-        return;
-    }
-    
-    const userInput = answerInput.value.trim();
-    
-    if (userInput === '') {
-        alertDiv.textContent = 'Пожалуйста, введите ответ';
-        alertDiv.classList.remove('hidden');
-        return;
-    }
-    
-    answeredEge = true;
-    totalTasks++;
-    egeTasksCompleted++;
-    
-    const isCorrect = userInput === currentEgeTask.correct;
-    const pointsEarned = currentLevel === 'basic' ? 1 : 2;
-    
-    if (isCorrect) {
-        egeTotalScore += pointsEarned;
-        resultDiv.innerHTML = `
-            <div class="flex items-start text-sm">
-                <div class="mr-2 mt-1">✅</div>
-                <div>
-                    <p class="font-bold text-green-400">Правильно! +${pointsEarned} балл${pointsEarned > 1 ? 'а' : ''}</p>
-                    <p class="mt-1">Ответ: <span class="font-mono">${currentEgeTask.correct}</span></p>
-                    <details class="mt-1 text-gray-300">
-                        <summary class="cursor-pointer hover:text-white">Показать решение</summary>
-                        <div class="mt-1 bg-gray-900/50 p-2 rounded">${currentEgeTask.solution}</div>
-                    </details>
+    <!-- Модальное окно авторизации -->
+    <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/70" onclick="closeAuthModal()"></div>
+        <div class="relative z-10 w-full max-w-md p-6">
+            <div class="bg-gray-800 rounded-xl p-6 border border-blue-500 shadow-lg">
+                <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/70 hover:text-white">
+                    ✕
+                </button>
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-blue-400 mb-2">Авторизация</h2>
+                    <p class="text-white/80">Войдите в свой аккаунт</p>
+                </div>
+                <!-- Сообщение об ошибке -->
+                <div id="auth-error" class="bg-red-900/30 text-red-400 p-3 rounded-lg mb-4 hidden"></div>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-blue-400 mb-1">Email</label>
+                        <input type="email" id="auth-email" required 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-blue-400 mb-1">Пароль</label>
+                        <input type="password" id="auth-password" required 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button type="submit" id="auth-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition flex items-center justify-center">
+                        <span id="auth-text">Войти</span>
+                        <div id="auth-loader" class="hidden ml-2">
+                            <div class="neon-loader"></div>
+                        </div>
+                    </button>
+                </form>
+                <div class="mt-4 text-center text-sm text-white/70">
+                    Нет аккаунта? <a href="#" class="text-blue-400 hover:underline">Зарегистрируйтесь</a>
+                </div>
+                <div class="mt-2 text-center text-sm text-white/70">
+                    <a href="#" class="text-blue-400 hover:underline">Забыли пароль?</a>
                 </div>
             </div>
-        `;
-        resultDiv.className = 'result-container bg-green-900/10 neon-border';
-    } else {
-        resultDiv.innerHTML = `
-            <div class="flex items-start text-sm">
-                <div class="mr-2 mt-1">❌</div>
-                <div>
-                    <p class="font-bold text-red-400">Неправильно</p>
-                    <p class="mt-1">Правильный ответ: <span class="font-mono">${currentEgeTask.correct}</span></p>
-                    <details class="mt-1 text-gray-300" open>
-                        <summary class="cursor-pointer hover:text-white">Решение</summary>
-                        <div class="mt-1 bg-gray-900/50 p-2 rounded">${currentEgeTask.solution}</div>
-                    </details>
-                </div>
-            </div>
-        `;
-        resultDiv.className = 'result-container bg-red-900/10 neon-border';
-    }
-    
-    resultDiv.classList.remove('hidden');
-    answerInput.disabled = true;
-
-            
-            // Обновление счетчиков
-            document.getElementById('ege-score').textContent = egeTotalScore;
-            document.getElementById('ege-tasks').textContent = `${egeTasksCompleted}/10`;
-            
-            // Проверка завершения 10 задач
-            if (egeTasksCompleted >= 10) {
-                const maxPossible = currentLevel === 'basic' ? 10 : 20;
-                resultDiv.innerHTML += `<br><br><strong>Тест завершен!</strong> Вы набрали ${egeTotalScore} баллов из ${maxPossible} возможных.`;
-                document.getElementById('ege-answer').disabled = true;
-                document.getElementById('ege-new-task-btn').disabled = true;
-            }
-            
-            updateProgress();
-        }
-
-        function generateDepositTask() {
-            let principal, rate, years, isCompound;
-            
-            if (currentLevel === 'basic') {
-                principal = Math.floor(Math.random() * 90000) + 10000;
-                rate = Math.floor(Math.random() * 11) + 5;
-                years = Math.floor(Math.random() * 5) + 1;
-                isCompound = Math.random() > 0.5;
-            } else {
-                // Более сложные задачи для повышенного уровня
-                principal = Math.floor(Math.random() * 900000) + 100000;
-                rate = Math.floor(Math.random() * 15) + 5;
-                years = Math.floor(Math.random() * 10) + 1;
-                isCompound = true; // В повышенном уровне всегда сложные проценты
-                
-                // 30% вероятности добавить ежемесячную капитализацию
-                if (Math.random() < 0.3) {
-                    const monthlyRate = rate / 12;
-                    const months = years * 12;
-                    
-                    currentDepositTask = {
-                        correct: principal * Math.pow(1 + monthlyRate / 100, months),
-                        question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с ежемесячной капитализацией. Сколько получит клиент?`
-                    };
-                    
-                    document.getElementById('deposit-question').textContent = currentDepositTask.question;
-                    document.getElementById('deposit-answer').value = '';
-                    document.getElementById('deposit-result').classList.add('hidden');
-                    document.getElementById('deposit-answer').disabled = false;
-                    document.getElementById('deposit-alert').classList.add('hidden');
-                    answeredDeposit = false;
-                    return;
-                }
-            }
-            
-            if (isCompound) {
-                currentDepositTask = {
-                    correct: principal * Math.pow(1 + rate / 100, years),
-                    question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с капитализацией. Сколько получит клиент?`
-                };
-            } else {
-                currentDepositTask = {
-                    correct: principal * (1 + rate / 100 * years),
-                    question: `Вклад ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} без капитализации. Сколько получит клиент?`
-                };
-            }
-            
-            document.getElementById('deposit-question').textContent = currentDepositTask.question;
-            document.getElementById('deposit-answer').value = '';
-            document.getElementById('deposit-result').classList.add('hidden');
-            document.getElementById('deposit-answer').disabled = false;
-            document.getElementById('deposit-alert').classList.add('hidden');
-            answeredDeposit = false;
-        }
-
-        function generateAnnuityTask() {
-            let principal, rate, years;
-            
-            if (currentLevel === 'basic') {
-                principal = Math.floor(Math.random() * 900000) + 100000;
-                rate = Math.floor(Math.random() * 11) + 10;
-                years = Math.floor(Math.random() * 5) + 1;
-            } else {
-                // Более сложные задачи для повышенного уровня
-                principal = Math.floor(Math.random() * 5000000) + 1000000;
-                rate = Math.floor(Math.random() * 15) + 10;
-                years = Math.floor(Math.random() * 10) + 1;
-                
-                // 30% вероятности добавить комиссию
-                if (Math.random() < 0.3) {
-                    const commission = Math.floor(Math.random() * 5) + 1;
-                    const months = years * 12;
-                    const monthlyRate = rate / 100 / 12;
-                    const payment = principal * monthlyRate * Math.pow(1 + monthlyRate, months) / 
-                                   (Math.pow(1 + monthlyRate, months) - 1);
-                    
-                    currentAnnuityTask = {
-                        correct: payment + (principal * commission / 100 / 12),
-                        question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с аннуитетными платежами. Банк берёт ${commission}% от суммы кредита в качестве ежемесячной комиссии. Какой будет ежемесячный платёж?`
-                    };
-                    
-                    document.getElementById('annuity-question').textContent = currentAnnuityTask.question;
-                    document.getElementById('annuity-answer').value = '';
-                    document.getElementById('annuity-result').classList.add('hidden');
-                    document.getElementById('annuity-answer').disabled = false;
-                    document.getElementById('annuity-alert').classList.add('hidden');
-                    answeredAnnuity = false;
-                    return;
-                }
-            }
-            
-            const months = years * 12;
-            const monthlyRate = rate / 100 / 12;
-            
-            currentAnnuityTask = {
-                correct: principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1),
-                question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с аннуитетными платежами. Какой будет ежемесячный платёж?`
-            };
-            
-            document.getElementById('annuity-question').textContent = currentAnnuityTask.question;
-            document.getElementById('annuity-answer').value = '';
-            document.getElementById('annuity-result').classList.add('hidden');
-            document.getElementById('annuity-answer').disabled = false;
-            document.getElementById('annuity-alert').classList.add('hidden');
-            answeredAnnuity = false;
-        }
-
-        function generateDiffTask() {
-            let principal, rate, years;
-            
-            if (currentLevel === 'basic') {
-                principal = Math.floor(Math.random() * 900000) + 100000;
-                rate = Math.floor(Math.random() * 11) + 10;
-                years = Math.floor(Math.random() * 5) + 1;
-            } else {
-                // Более сложные задачи для повышенного уровня
-                principal = Math.floor(Math.random() * 5000000) + 1000000;
-                rate = Math.floor(Math.random() * 15) + 10;
-                years = Math.floor(Math.random() * 10) + 1;
-                
-                // 30% вероятности добавить комиссию
-                if (Math.random() < 0.3) {
-                    const commission = Math.floor(Math.random() * 5) + 1;
-                    const months = years * 12;
-                    const monthlyPrincipal = principal / months;
-                    const firstPayment = monthlyPrincipal + principal * (rate / 100 / 12) + (principal * commission / 100);
-                    const lastPayment = monthlyPrincipal + monthlyPrincipal * (rate / 100 / 12) + (monthlyPrincipal * commission / 100);
-                    
-                    currentDiffTask = {
-                        firstPayment: firstPayment,
-                        lastPayment: lastPayment,
-                        question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с дифференцированными платежами. Банк берёт ${commission}% от остатка долга в качестве ежемесячной комиссии. Какой будет первый и последний платежи? (введите через пробел)`
-                    };
-                    
-                    document.getElementById('diff-question').textContent = currentDiffTask.question;
-                    document.getElementById('diff-answer').value = '';
-                    document.getElementById('diff-result').classList.add('hidden');
-                    document.getElementById('diff-answer').disabled = false;
-                    document.getElementById('diff-alert').classList.add('hidden');
-                    answeredDiff = false;
-                    return;
-                }
-            }
-            
-            const months = years * 12;
-            const monthlyPrincipal = principal / months;
-            
-            currentDiffTask = {
-                firstPayment: monthlyPrincipal + principal * (rate / 100 / 12),
-                lastPayment: monthlyPrincipal + monthlyPrincipal * (rate / 100 / 12),
-                question: `Кредит ${formatNumber(principal)} руб. под ${rate}% годовых на ${years} ${getYearWord(years)} с дифференцированными платежами. Какой будет первый и последний платежи? (введите через пробел)`
-            };
-            
-            document.getElementById('diff-question').textContent = currentDiffTask.question;
-            document.getElementById('diff-answer').value = '';
-            document.getElementById('diff-result').classList.add('hidden');
-            document.getElementById('diff-answer').disabled = false;
-            document.getElementById('diff-alert').classList.add('hidden');
-            answeredDiff = false;
-        }
-
-        function generateInvestTask() {
-            let target, rate, years;
-            
-            if (currentLevel === 'basic') {
-                target = Math.floor(Math.random() * 9000000) + 1000000;
-                rate = Math.floor(Math.random() * 8) + 5;
-                years = Math.floor(Math.random() * 15) + 5;
-                
-                currentInvestTask = {
-                    correct: target / Math.pow(1 + rate / 100, years),
-                    question: `Какую сумму вам нужно инвестировать сегодня под ${rate}% годовых, чтобы через ${years} ${getYearWord(years)} получить ${formatNumber(target)} руб.?`
-                };
-            } else {
-                // Более сложные задачи для повышенного уровня
-                target = Math.floor(Math.random() * 90000000) + 10000000;
-                rate = Math.floor(Math.random() * 15) + 5;
-                years = Math.floor(Math.random() * 30) + 10;
-                
-                // 30% вероятности добавить ежемесячное пополнение
-                if (Math.random() < 0.3) {
-                    const monthlyPayment = Math.floor(Math.random() * 50000) + 10000;
-                    const monthlyRate = rate / 12 / 100;
-                    const months = years * 12;
-                    const futureValue = monthlyPayment * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
-                    
-                    currentInvestTask = {
-                        correct: futureValue,
-                        question: `Вы планируете ежемесячно вносить ${formatNumber(monthlyPayment)} руб. на инвестиционный счёт под ${rate}% годовых с ежемесячной капитализацией. Какую сумму вы накопите через ${years} ${getYearWord(years)}?`
-                    };
-                    
-                    document.getElementById('invest-question').textContent = currentInvestTask.question;
-                    document.getElementById('invest-answer').value = '';
-                    document.getElementById('invest-result').classList.add('hidden');
-                    document.getElementById('invest-answer').disabled = false;
-                    document.getElementById('invest-alert').classList.add('hidden');
-                    answeredInvest = false;
-                    return;
-                }
-                
-                currentInvestTask = {
-                    correct: target / Math.pow(1 + rate / 100, years),
-                    question: `Какую сумму вам нужно инвестировать сегодня под ${rate}% годовых, чтобы через ${years} ${getYearWord(years)} получить ${formatNumber(target)} руб.?`
-                };
-            }
-            
-            document.getElementById('invest-question').textContent = currentInvestTask.question;
-            document.getElementById('invest-answer').value = '';
-            document.getElementById('invest-result').classList.add('hidden');
-            document.getElementById('invest-answer').disabled = false;
-            document.getElementById('invest-alert').classList.add('hidden');
-            answeredInvest = false;
-        }
-
-        function generateEgeTask() {
-            // Проверка завершения 10 задач
-            if (egeTasksCompleted >= 10) {
-                document.getElementById('ege-question').textContent = "Вы уже решили 10 задач. Максимальное количество задач достигнуто.";
-                document.getElementById('ege-answer').disabled = true;
-                document.getElementById('ege-new-task-btn').disabled = true;
-                return;
-            }
-            
-            // Генерация задач для ЕГЭ в зависимости от уровня сложности
-            if (currentLevel === 'basic') {
-                generateBasicEgeTask();
-            } else {
-                generateAdvancedEgeTask();
-            }
-        }
-
-        function generateBasicEgeTask() {
-            // Генерация базовых задач (№15)
-            const taskTypes = ['deposit', 'credit', 'discount'];
-            const type = taskTypes[Math.floor(Math.random() * taskTypes.length)];
-            
-            let question, correct, solution;
-            const amount = Math.round((10000 + Math.random() * 90000) / 1000) * 1000; // Сумма от 10к до 100к, кратная 1000
-            const years = 1 + Math.floor(Math.random() * 5); // От 1 до 5 лет
-            const rate = 5 + Math.floor(Math.random() * 16); // Ставка от 5% до 20%
-            
-            switch(type) {
-                case 'deposit':
-                    // Вклад с капитализацией
-                    const capitalization = ['ежегодно', 'ежеквартально', 'ежемесячно'][Math.floor(Math.random() * 3)];
-                    let periodsPerYear, totalPeriods;
-                    
-                    if (capitalization === 'ежегодно') {
-                        periodsPerYear = 1;
-                        totalPeriods = years;
-                    } else if (capitalization === 'ежеквартально') {
-                        periodsPerYear = 4;
-                        totalPeriods = years * 4;
-                    } else {
-                        periodsPerYear = 12;
-                        totalPeriods = years * 12;
-                    }
-                    
-                    const periodRate = rate / periodsPerYear / 100;
-                    const finalAmount = Math.round(amount * Math.pow(1 + periodRate, totalPeriods));
-                    
-                    question = `Вкладчик положил в банк ${amount.toLocaleString('ru-RU')} рублей под ${rate}% годовых с капитализацией ${capitalization}. Какая сумма будет на счету через ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'}?`;
-                    correct = finalAmount.toString();
-                    solution = `Используем формулу сложных процентов: S = P × (1 + r)^n = ${amount} × (1 + ${periodRate.toFixed(4)})^{${totalPeriods}} ≈ ${finalAmount} руб.`;
-                    break;
-                    
-                case 'credit':
-                    // Аннуитетный кредит
-                    const months = years * 12;
-                    const monthlyRate = rate / 12 / 100;
-                    const annuityPayment = Math.round(amount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1));
-                    
-                    question = `Кредит в ${amount.toLocaleString('ru-RU')} рублей выдан под ${rate}% годовых на ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'} с аннуитетными платежами. Найдите ежемесячный платеж.`;
-                    correct = annuityPayment.toString();
-                    solution = `Месячная ставка: ${rate}%/12 = ${(rate/12).toFixed(2)}%. Количество месяцев: ${months}. Платёж = (${amount}×${monthlyRate.toFixed(4)}×(1+${monthlyRate.toFixed(4)})^{${months}})/((1+${monthlyRate.toFixed(4)})^{${months}}-1) ≈ ${annuityPayment} руб.`;
-                    break;
-                    
-                case 'discount':
-                    // Дисконтирование
-                    const futureAmount = Math.round((amount * (1 + 0.1 * Math.random())) / 1000) * 1000;
-                    const discountRate = 5 + Math.floor(Math.random() * 11); // От 5% до 15%
-                    const presentValue = Math.round(futureAmount / Math.pow(1 + discountRate/100, years));
-                    
-                    question = `Какую сумму нужно положить в банк под ${discountRate}% годовых с ежегодной капитализацией, чтобы через ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'} получить ${futureAmount.toLocaleString('ru-RU')} рублей?`;
-                    correct = presentValue.toString();
-                    solution = `Используем формулу дисконтирования: P = S / (1 + r)^n = ${futureAmount} / (1 + ${discountRate/100})^{${years}} ≈ ${presentValue} руб.`;
-                    break;
-            }
-            
-            currentEgeTask = {
-                correct: correct,
-                question: question,
-                solution: solution
-            };
-            
-            document.getElementById('ege-question').textContent = currentEgeTask.question;
-            document.getElementById('ege-answer').value = '';
-            document.getElementById('ege-result').classList.add('hidden');
-            document.getElementById('ege-answer').disabled = false;
-            document.getElementById('ege-alert').classList.add('hidden');
-            answeredEge = false;
-        }
-
-        function generateAdvancedEgeTask() {
-            // Генерация сложных задач (№17)
-            const taskTypes = ['two-payments', 'equal-reduction', 'varying-payments', 'deposit-additions'];
-            const type = taskTypes[Math.floor(Math.random() * taskTypes.length)];
-            
-            let question, correct, solution;
-            const amount = Math.round((1000000 + Math.random() * 9000000) / 100000) * 100000; // От 1 млн до 10 млн
-            const years = 2 + Math.floor(Math.random() * 4); // От 2 до 5 лет
-            const rate = 10 + Math.floor(Math.random() * 21); // Ставка от 10% до 30%
-            
-            switch(type) {
-                case 'two-payments':
-                    // Кредит с двумя равными платежами
-                    const totalAmount = amount * Math.pow(1 + rate/100, 2);
-                    const payment = Math.round(totalAmount / (1 + (1 + rate/100)));
-                    
-                    question = `31 декабря 2024 года заемщик взял в банке ${(amount/1000000).toLocaleString('ru-RU')} млн рублей в кредит под ${rate}% годовых. Схема выплаты кредита следующая — 31 декабря каждого следующего года банк начисляет проценты на оставшуюся сумму долга, затем заемщик переводит в банк X рублей. Какой должна быть сумма X, чтобы заемщик выплатил долг двумя равными платежами?`;
-                    correct = payment.toString();
-                    solution = `После первого года долг составит: ${amount} × 1.${rate} = ${Math.round(amount * (1 + rate/100))}. После выплаты X руб. останется: ${Math.round(amount * (1 + rate/100))} - X. На второй год остаток увеличивается на ${rate}%: (${Math.round(amount * (1 + rate/100))} - X) × 1.${rate}. После второй выплаты X руб. долг должен быть погашен: (${Math.round(amount * (1 + rate/100))} - X) × 1.${rate} - X = 0. Решая уравнение, получаем X = ${payment} руб.`;
-                    break;
-                    
-                case 'equal-reduction':
-                    // Кредит с равномерным уменьшением долга
-                    const months = years * 12;
-                    const totalPayment = Math.round(amount * (1 + 0.3 + 0.1 * Math.random())); // Общая выплата на 30-40% больше
-                    const r = Math.round((totalPayment/amount - 1) * 10 * 100) / 100; // Расчетная ставка
-                    
-                    question = `15 января планируется взять кредит в банке на ${months} месяцев. Условия его возврата таковы: 1-го числа каждого месяца долг возрастает на r% по сравнению с концом предыдущего месяца; со 2-го по 14-е число каждого месяца необходимо выплатить часть долга; 15-го числа каждого месяца долг должен быть на одну и ту же сумму меньше долга на 15-е число предыдущего месяца. Известно, что общая сумма выплат после полного погашения кредита на ${Math.round((totalPayment/amount - 1)*100)}% больше суммы, взятой в кредит. Найдите r.`;
-                    correct = r.toString();
-                    solution = `Пусть сумма кредита S. По условию, долг уменьшается равномерно: каждый месяц на S/${months}. Проценты: (S + (S - S/${months}) + (S - 2S/${months}) + ... + S/${months}) × r/100 = S × (1 + ${months-1}/${months} + ${months-2}/${months} + ... + 1/${months}) × r/100 = S × (${months+1}/2) × r/100 = ${(months+1)/200}S × r. Итого выплаты: S + ${(months+1)/200}S × r = ${totalPayment/amount}S ⇒ ${(months+1)/200} × r = ${totalPayment/amount - 1} ⇒ r = ${r}.`;
-                    break;
-                    
-                case 'varying-payments':
-                    // Кредит с разными платежами по годам
-                    const annualPayment = Math.round(amount / years);
-                    const totalInterest = annualPayment * rate/100 * (years + 1) / 2;
-                    const totalPaymentVar = amount + totalInterest;
-                    
-                    question = `В июле планируется взять кредит на сумму ${(amount/1000000).toLocaleString('ru-RU')} млн рублей на ${years} ${years === 1 ? 'год' : years < 5 ? 'года' : 'лет'}. Условия возврата: каждый январь долг возрастает на ${rate}% по сравнению с концом предыдущего года; с февраля по июнь каждого года необходимо выплатить часть долга; в июле каждого года долг должен быть на одну и ту же сумму меньше долга на июль предыдущего года. Сколько рублей составит общая сумма выплат?`;
-                    correct = Math.round(totalPaymentVar).toString();
-                    solution = `Ежегодное уменьшение долга: ${amount} / ${years} = ${annualPayment} руб. Проценты: (${amount} + ${amount - annualPayment} + ${amount - 2*annualPayment} + ... + ${annualPayment}) × ${rate/100} = ${amount} × ${(years + 1)/2} × ${rate/100} = ${totalInterest} руб. Общая сумма выплат: ${amount} + ${totalInterest} = ${Math.round(totalPaymentVar)} руб.`;
-                    break;
-                    
-                case 'deposit-additions':
-                    // Вклад с ежегодными пополнениями
-                    const additions = Math.round((100000 + Math.random() * 400000) / 10000) * 10000; // Пополнения от 100к до 500к
-                    const finalAmount = Math.round(amount * Math.pow(1 + rate/100, 5) + additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)));
-                    
-                    question = `В банк помещена сумма ${(amount/1000000).toLocaleString('ru-RU')} млн рублей под ${rate}% годовых. В конце каждого из первых четырех лет хранения после начисления процентов вкладчик дополнительно вносил на счет ${additions.toLocaleString('ru-RU')} рублей. Какая сумма будет на счету к концу пятого года?`;
-                    correct = finalAmount.toString();
-                    solution = `Через 5 лет основная сумма составит: ${amount} × 1.${rate}^5 ≈ ${Math.round(amount * Math.pow(1 + rate/100, 5))} руб. Добавки с процентами: ${additions} × (1.${rate}^4 + 1.${rate}^3 + 1.${rate}^2 + 1.${rate}) ≈ ${Math.round(additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)))} руб. Итого: ${Math.round(amount * Math.pow(1 + rate/100, 5))} + ${Math.round(additions * (Math.pow(1 + rate/100, 4) + Math.pow(1 + rate/100, 3) + Math.pow(1 + rate/100, 2) + (1 + rate/100)))} ≈ ${finalAmount} руб.`;
-                    break;
-            }
-            
-            currentEgeTask = {
-                correct: correct,
-                question: question,
-                solution: solution
-            };
-            
-            document.getElementById('ege-question').textContent = currentEgeTask.question;
-            document.getElementById('ege-answer').value = '';
-            document.getElementById('ege-result').classList.add('hidden');
-            document.getElementById('ege-answer').disabled = false;
-            document.getElementById('ege-alert').classList.add('hidden');
-            answeredEge = false;
-        }
-
-        // Вспомогательные функции
-        function formatNumber(num) {
-            return new Intl.NumberFormat('ru-RU').format(Math.round(num));
-        }
-
-        function getYearWord(years) {
-            const lastDigit = years % 10;
-            const lastTwoDigits = years % 100;
-            
-            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) return 'лет';
-            if (lastDigit === 1) return 'год';
-            if (lastDigit >= 2 && lastDigit <= 4) return 'года';
-            return 'лет';
-        }
-    </script>
-<script>
-  function toggleMenu() {
-    const sidebar = document.getElementById('sidebar-menu');
-    const overlay = document.getElementById('menu-overlay');
-    sidebar.classList.toggle('open');
-    overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
-  }
-
-  function closeMenu() {
-    document.getElementById('sidebar-menu').classList.remove('open');
-    document.getElementById('menu-overlay').style.display = 'none';
-  }
-
-  // Close menu on outside click or ESC key
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      closeMenu();
-    }
-  });
-
-  document.getElementById('close-menu').addEventListener('click', () => {
-    closeMenu();
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-      closeMenu();
-    }
-  });
-</script>
-<!-- Модальное окно авторизации -->
-<div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-  <div class="absolute inset-0 bg-black/70" onclick="closeAuthModal()"></div>
-  <div class="relative z-10 w-full max-w-md p-6">
-    <div class="bg-gray-800 rounded-xl p-6 border border-blue-500 shadow-lg">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-white/70 hover:text-white">
-        ✕
-      </button>
-      
-      <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-blue-400 mb-2">Авторизация</h2>
-        <p class="text-white/80">Войдите в свой аккаунт</p>
-      </div>
-      
-      <!-- Сообщение об ошибке -->
-      <div id="auth-error" class="bg-red-900/30 text-red-400 p-3 rounded-lg mb-4 hidden"></div>
-      
-      <form id="login-form" class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-blue-400 mb-1">Email</label>
-          <input type="email" id="auth-email" required 
-                 class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
-        
-        <div>
-          <label class="block text-sm font-medium text-blue-400 mb-1">Пароль</label>
-          <input type="password" id="auth-password" required 
-                 class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        
-        <button type="submit" id="auth-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition flex items-center justify-center">
-          <span id="auth-text">Войти</span>
-          <div id="auth-loader" class="hidden ml-2">
-            <div class="neon-loader"></div>
-          </div>
-        </button>
-      </form>
-      
-      <div class="mt-4 text-center text-sm text-white/70">
-        Нет аккаунта? <a href="#" class="text-blue-400 hover:underline">Зарегистрируйтесь</a>
-      </div>
-      <div class="mt-2 text-center text-sm text-white/70">
-        <a href="#" class="text-blue-400 hover:underline">Забыли пароль?</a>
-      </div>
     </div>
-  </div>
-</div>
-<script>
-// Функция открытия модального окна авторизации
-function openAuthModal() {
-    document.getElementById('auth-modal').classList.add('show');
-    document.getElementById('auth-modal').classList.remove('hidden');
-    document.getElementById('auth-email').value = '';
-    document.getElementById('auth-password').value = '';
-    document.getElementById('auth-error').classList.add('hidden');
-    document.getElementById('auth-error').textContent = '';
-}
-
-// Функция закрытия модального окна авторизации
-function closeAuthModal() {
-    document.getElementById('auth-modal').classList.remove('show');
-    document.getElementById('auth-modal').classList.add('hidden');
-}
-
-// Обработка формы авторизации
-document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('auth-email').value.trim();
-    const password = document.getElementById('auth-password').value.trim();
-    const errorDiv = document.getElementById('auth-error');
-    
-    // Простая валидация
-    if (!email || !password) {
-        errorDiv.textContent = 'Пожалуйста, заполните все поля';
-        errorDiv.classList.remove('hidden');
-        return;
-    }
-    
-    // Имитация отправки данных
-    document.getElementById('auth-submit').disabled = true;
-    document.getElementById('auth-loader').classList.remove('hidden');
-    document.getElementById('auth-text').classList.add('hidden');
-    
-    setTimeout(() => {
-        // Здесь должна быть логика реальной авторизации
-        document.getElementById('auth-submit').disabled = false;
-        document.getElementById('auth-loader').classList.add('hidden');
-        document.getElementById('auth-text').classList.remove('hidden');
-        
-        // Имитация успешного входа
-        alert(`Вы успешно вошли как ${email}`);
-        closeAuthModal();
-    }, 1500);
-});
-</script>
+   </script>
 </body>
 </html>
