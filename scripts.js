@@ -1004,3 +1004,135 @@ document.querySelector('aside li:nth-child(4) a').addEventListener('click', func
   toggleMenu();
   openAuthModal();
 });
+
+// ==================== АВТОРИЗАЦИЯ ====================
+// Функции для модального окна авторизации
+function openAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeAuthModal() {
+    const modal = document.getElementById('auth-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+}
+
+// Валидация формы
+function validateAuthForm(email, password) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+        showAuthError('Пожалуйста, введите email');
+        return false;
+    }
+    if (!emailRegex.test(email)) {
+        showAuthError('Пожалуйста, введите корректный email');
+        return false;
+    }
+    if (!password || password.length < 6) {
+        showAuthError('Пароль должен содержать минимум 6 символов');
+        return false;
+    }
+    return true;
+}
+
+// Показать ошибку авторизации
+function showAuthError(message) {
+    const errorElement = document.getElementById('auth-error');
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+    }
+}
+
+// Обработчик формы входа
+document.getElementById('login-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const emailInput = document.getElementById('auth-email');
+    const passwordInput = document.getElementById('auth-password');
+    const errorDiv = document.getElementById('auth-error');
+    const submitBtn = document.getElementById('auth-submit');
+    const loader = document.getElementById('auth-loader');
+    const authText = document.getElementById('auth-text');
+
+    // Очистка предыдущих ошибок
+    if (errorDiv) {
+        errorDiv.classList.add('hidden');
+        errorDiv.textContent = '';
+    }
+
+    const email = emailInput?.value.trim();
+    const password = passwordInput?.value.trim();
+
+    // Простая валидация
+    if (!validateAuthForm(email, password)) {
+        return;
+    }
+
+    // Блокировка кнопки и показ лоадера
+    if (submitBtn) submitBtn.disabled = true;
+    if (loader) loader.classList.remove('hidden');
+    if (authText) authText.classList.add('hidden');
+
+    // Имитация отправки данных на сервер
+    setTimeout(() => {
+        try {
+            // Здесь должна быть реальная логика авторизации
+            console.log(`Попытка входа: ${email}`);
+            
+            // Имитация успешного входа
+            alert(`Вы успешно вошли как ${email}`);
+            closeAuthModal();
+            updateUIAfterAuth(email);
+        } catch (error) {
+            showAuthError(error.message || 'Ошибка при авторизации');
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
+            if (loader) loader.classList.add('hidden');
+            if (authText) authText.classList.remove('hidden');
+        }
+    }, 1500);
+});
+
+// Обновление интерфейса после авторизации
+function updateUIAfterAuth(email) {
+    // Меняем текст кнопки меню на email пользователя
+    const menuItems = document.querySelectorAll('.menu-panel li a');
+    if (menuItems && menuItems.length >= 3) {
+        menuItems[2].textContent = `Профиль: ${email.split('@')[0]}`;
+    }
+
+    // Можно добавить дополнительные изменения интерфейса для авторизованного пользователя
+    console.log(`Пользователь ${email} авторизован`);
+}
+
+// Закрытие модального окна при клике вне его области
+document.getElementById('auth-modal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeAuthModal();
+    }
+});
+
+// Добавляем обработчики для кнопки "Авторизация" в меню
+document.querySelectorAll('[data-auth]').forEach(element => {
+    element.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeMenu(); // Предполагается, что эта функция уже определена
+        openAuthModal();
+    });
+});
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeAuthModal();
+    }
+});
