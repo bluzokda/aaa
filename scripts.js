@@ -20,8 +20,6 @@ let answeredEge = false;
 let currentLevel = 'basic';
 let egeTasksCompleted = 0;
 let egeTotalScore = 0;
-let authToken = localStorage.getItem('authToken') || null;
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 
 // ==================== АВТОРИЗАЦИЯ ====================
 
@@ -73,58 +71,59 @@ function updateMenuForGuest() {
 // Функции для модального окна авторизации
 function openAuthModal(mode = 'login') {
     const modal = document.getElementById('auth-modal');
-    const title = document.getElementById('auth-modal-title');
-    const subtitle = document.getElementById('auth-modal-subtitle');
-    const submitBtn = document.getElementById('auth-text');
-    const switchLink = document.getElementById('auth-switch-mode');
-    const forgotLink = document.getElementById('auth-forgot-password');
-    const nameField = document.getElementById('auth-name-field');
-    const confirmPassField = document.getElementById('auth-confirm-password-field');
-    
-    // Сброс ошибок
-    document.getElementById('auth-error').classList.add('hidden');
+    const title = modal.querySelector('h2');
+    const submitBtn = modal.querySelector('#auth-submit');
+    const switchLink = modal.querySelector('#auth-switch-mode');
     
     if (mode === 'login') {
         title.textContent = 'Авторизация';
-        subtitle.textContent = 'Войдите в свой аккаунт';
         submitBtn.textContent = 'Войти';
-        switchLink.innerHTML = 'Нет аккаунта? <a href="#" class="text-blue-400 hover:underline" onclick="switchAuthMode(\'register\')">Зарегистрируйтесь</a>';
-        forgotLink.classList.remove('hidden');
-        nameField.classList.add('hidden');
-        confirmPassField.classList.add('hidden');
-    } else if (mode === 'register') {
+        switchLink.innerHTML = 'Нет аккаунта? <a href="#" class="text-blue-400 hover:underline" onclick="openAuthModal(\'register\')">Зарегистрируйтесь</a>';
+    } else {
         title.textContent = 'Регистрация';
-        subtitle.textContent = 'Создайте новый аккаунт';
         submitBtn.textContent = 'Зарегистрироваться';
-        switchLink.innerHTML = 'Уже есть аккаунт? <a href="#" class="text-blue-400 hover:underline" onclick="switchAuthMode(\'login\')">Войдите</a>';
-        forgotLink.classList.add('hidden');
-        nameField.classList.remove('hidden');
-        confirmPassField.classList.remove('hidden');
-    } else if (mode === 'forgot') {
-        title.textContent = 'Восстановление пароля';
-        subtitle.textContent = 'Введите email для восстановления';
-        submitBtn.textContent = 'Отправить ссылку';
-        switchLink.innerHTML = 'Вспомнили пароль? <a href="#" class="text-blue-400 hover:underline" onclick="switchAuthMode(\'login\')">Войти</a>';
-        forgotLink.classList.add('hidden');
-        nameField.classList.add('hidden');
-        confirmPassField.classList.add('hidden');
+        switchLink.innerHTML = 'Уже есть аккаунт? <a href="#" class="text-blue-400 hover:underline" onclick="openAuthModal(\'login\')">Войдите</a>';
     }
     
     modal.dataset.mode = mode;
-    modal.classList.remove('hidden');
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
 function closeAuthModal() {
     const modal = document.getElementById('auth-modal');
-    modal.classList.add('hidden');
+    modal.classList.remove('active');
     document.body.style.overflow = '';
     document.getElementById('auth-error').classList.add('hidden');
-    document.getElementById('auth-form').reset();
+    document.getElementById('login-form').reset();
 }
 
-function switchAuthMode(mode) {
-    openAuthModal(mode);
+// Валидация формы
+function validateAuthForm(email, password, isRegister = false) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const errorElement = document.getElementById('auth-error');
+    
+    if (!email) {
+        showAuthError('Пожалуйста, введите email');
+        return false;
+    }
+    
+    if (!emailRegex.test(email)) {
+        showAuthError('Пожалуйста, введите корректный email');
+        return false;
+    }
+    
+    if (!password || password.length < 6) {
+        showAuthError('Пароль должен содержать минимум 6 символов');
+        return false;
+    }
+    
+    if (isRegister && password.length < 8) {
+        showAuthError('Пароль должен содержать минимум 8 символов');
+        return false;
+    }
+    
+    return true;
 }
 
 // Показать ошибку авторизации
@@ -185,12 +184,6 @@ document.getElementById('login-form').addEventListener('submit', async function(
         authText.classList.add('hidden');
         loader.classList.remove('hidden');
         
-        let response;
-        
-        if (mode === 'login') {
-        // Логин
-            response = await authApiRequest('/login', { email, password });
-
         // Имитация запроса к API
         const response = await authApiRequest(
             isRegister ? '/register' : '/login', 
@@ -210,14 +203,6 @@ document.getElementById('login-form').addEventListener('submit', async function(
         
         // Показываем уведомление об успешной авторизации
         showToast(isRegister ? 'Регистрация прошла успешно!' : 'Вы успешно вошли!');
-        
-    } else if (mode === 'forgot') {
-            // Восстановление пароля
-            response = await authApiRequest('/forgot-password', { email });
-            
-            closeAuthModal();
-            showToast('Ссылка для восстановления отправлена на ваш email');
-        }
         
     } catch (error) {
         showAuthError(error.message || 'Ошибка при авторизации');
@@ -253,12 +238,9 @@ function showToast(message) {
     const toast = document.getElementById('toast');
     toast.textContent = message;
     toast.classList.add('show');
-    toast.classList.remove('translate-y-10', 'opacity-0');
-    toast.classList.add('translate-y-0', 'opacity-100');
     
     setTimeout(() => {
-        toast.classList.remove('translate-y-0', 'opacity-100');
-        toast.classList.add('translate-y-10', 'opacity-0');
+        toast.classList.remove('show');
     }, 3000);
 }
 
@@ -1074,17 +1056,16 @@ function getYearWord(years) {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
+    createBubbles();
+    generateDepositTask();
+    setEgeLevel('basic');
     initAuthUI();
     
     // Обработчик клика по кнопке входа в хедере
     document.getElementById('auth-btn').addEventListener('click', () => openAuthModal());
     
     // Обработчик клика по кнопке профиля
-    document.getElementById('profile-btn').addEventListener('click', function() {
-        if (currentUser) {
-            alert(`Профиль пользователя:\nИмя: ${currentUser.name}\nEmail: ${currentUser.email}`);
-        }
-    });
+    document.getElementById('profile-btn').addEventListener('click', showProfile);
     
     // Закрытие модального окна при клике вне его
     document.getElementById('auth-modal').addEventListener('click', function(e) {
