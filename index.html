@@ -451,40 +451,55 @@
     <div id="bubbles-container" class="fixed inset-0 overflow-hidden -z-10"></div>
 
     <!-- Auth Modal -->
-    <div id="auth-modal" class="auth-container hidden">
-        <div class="auth-box">
-            <div class="text-center mb-6">
-                <h1 class="auth-title">ЭКСПЕРТ</h1>
-                <p class="text-white/80">Офицерская грамотность — ключ к успеху</p>
+<div id="auth-modal" class="auth-container hidden">
+    <div class="auth-box">
+        <div class="text-center mb-6">
+            <h1 class="auth-title">ЭКСПЕРТ</h1>
+            <p class="text-white/80">Офицерская грамотность — ключ к успеху</p>
+        </div>
+        
+        <div class="text-center mb-6">
+            <h2 id="auth-modal-title" class="text-xl font-bold text-white mb-1">Авторизация</h2>
+            <p id="auth-modal-subtitle" class="text-white/60">Войдите в свой аккаунт</p>
+        </div>
+        
+        <div id="auth-error" class="hidden bg-red-900/20 text-red-400 p-3 rounded-lg mb-4"></div>
+        
+        <form id="auth-form" class="space-y-4">
+            <div id="auth-name-field" class="hidden">
+                <label class="block text-sm font-medium text-neon-blue mb-1">Имя</label>
+                <input type="text" id="auth-name" class="auth-input" placeholder="Ваше имя">
             </div>
             
-            <div class="text-center mb-6">
-                <h2 class="text-xl font-bold text-white mb-1">Авторизация</h2>
-                <p class="text-white/60">Войдите в свой аккаунт</p>
+            <div>
+                <label class="block text-sm font-medium text-neon-blue mb-1">Email</label>
+                <input type="email" id="auth-email" required class="auth-input" placeholder="Ваш email">
             </div>
             
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-neon-blue mb-1">Email</label>
-                    <input type="email" id="auth-email" required class="auth-input" placeholder="Ваш email">
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-neon-blue mb-1">Пароль</label>
-                    <input type="password" id="auth-password" required class="auth-input" placeholder="Ваш пароль">
-                </div>
-                
-                <button type="submit" class="auth-btn">
-                    Войти
-                </button>
-            </form>
-            
-            <div class="mt-6 text-center text-sm text-white/60">
-                <p>Нет аккаунта? <a href="#" class="auth-link" onclick="switchToRegister()">Зарегистрируйтесь</a></p>
-                <p class="mt-1">Забыли пароль? <a href="#" class="auth-link">Восстановить</a></p>
+            <div>
+                <label class="block text-sm font-medium text-neon-blue mb-1">Пароль</label>
+                <input type="password" id="auth-password" required class="auth-input" placeholder="Ваш пароль">
             </div>
+            
+            <div id="auth-confirm-password-field" class="hidden">
+                <label class="block text-sm font-medium text-neon-blue mb-1">Подтвердите пароль</label>
+                <input type="password" id="auth-confirm-password" class="auth-input" placeholder="Повторите пароль">
+            </div>
+            
+            <button type="submit" class="auth-btn">
+                <span id="auth-text">Войти</span>
+                <div id="auth-loader" class="neon-loader hidden"></div>
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center text-sm text-white/60">
+            <p id="auth-switch-mode">Нет аккаунта? <a href="#" class="text-blue-400 hover:underline" onclick="switchAuthMode('register')">Зарегистрируйтесь</a></p>
+            <p id="auth-forgot-password" class="mt-1">Забыли пароль? <a href="#" class="text-blue-400 hover:underline" onclick="switchAuthMode('forgot')">Восстановить</a></p>
         </div>
     </div>
+</div>
+<!-- Toast notification -->
+<div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300"></div>
 
     <!-- Sidebar Menu -->
     <aside id="sidebar-menu" class="menu-panel">
